@@ -317,8 +317,10 @@ namespace Railway
                         {
                             int price = trainline.CalculatePrice(startStation, endStation);
                             int duration = trainline.CalculateDuration(startStation, endStation);
-                            DateTime dateTime = trainline.CalculateDateAndTime(timetable, travelDate, startStation, endStation);
-                            quickReservations.Add(new QuickReservation(trainline, timetable, dateTime, price, duration));
+                            DateTime departure = trainline.CalculateDateAndTime(timetable, travelDate, startStation, endStation);
+                            DateTime arrival = departure.AddMinutes(duration);
+                            List<string> allStations = trainline.getStationInbetween(startStation, endStation);
+                            quickReservations.Add(new QuickReservation(startStation, endStation, allStations, trainline, timetable, departure, arrival, price, duration));
                         }
                     }
                 }

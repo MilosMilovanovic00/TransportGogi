@@ -25,6 +25,7 @@ namespace Railway
             InitializeComponent();
             MainFrame.Content = new SearchRoute(MainFrame);
             //MainFrame.Content = new AddTrainRoute();
+            //MainFrame.Content = new BuyTicket(MainFrame, new List<Model.QuickReservation>());
         }
     }
 }

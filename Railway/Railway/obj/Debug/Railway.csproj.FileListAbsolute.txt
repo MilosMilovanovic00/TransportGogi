@@ -19,3 +19,4 @@ D:\siit\HCI\Proj2\TransportGogi\Railway\Railway\obj\Debug\BuyTicket.baml
 D:\siit\HCI\Proj2\TransportGogi\Railway\Railway\obj\Debug\SearchRoute.baml
 D:\siit\HCI\Proj2\TransportGogi\Railway\Railway\obj\Debug\AddTrainRoute.g.cs
 D:\siit\HCI\Proj2\TransportGogi\Railway\Railway\obj\Debug\AddTrainRoute.baml
+D:\siit\HCI\Proj2\TransportGogi\Railway\Railway\obj\Debug\App.baml

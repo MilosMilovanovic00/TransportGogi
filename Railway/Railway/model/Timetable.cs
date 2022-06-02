@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Railway.Model
 {
-    class Timetable
+    public class Timetable
     {
         public Train Train { get; set; }
         public Trainline Trainline { get; set; }

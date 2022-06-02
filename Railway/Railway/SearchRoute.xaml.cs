@@ -94,7 +94,7 @@ namespace Railway
                 MessageBox.Show("There are no available trains on the required route for the date. Please try again with different parameters.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
-            MainFrame.Content = new BuyTicket();
+            MainFrame.Content = new BuyTicket(MainFrame, quickReservations);
         }
     }
 }

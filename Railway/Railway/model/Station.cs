@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Railway.Model
 {
-    class Station
+    public class Station
     {
         public string Name { get; set; }
         public double Longitude { get; set; }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Railway.Model
 {
-    class Path
+    public class Path
     {
         public Station PreviousStation { get; set; }
         public Station NextStation { get; set; }
