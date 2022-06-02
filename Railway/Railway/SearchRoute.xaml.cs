@@ -73,6 +73,11 @@ namespace Railway
                 MessageBox.Show("Please enter ending station.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
+            if (startStation.Equals(endStation))
+            {
+                MessageBox.Show("Starting and ending stations must be different.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
             try
             {
                 date = DateTime.Parse(travelDate.Text);
@@ -88,13 +93,12 @@ namespace Railway
                 MessageBox.Show("There is no direct route for searched trains. Please enter different stations.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
-            quickReservations.ForEach(x => Console.WriteLine(x));
             if (quickReservations.Count() == 0)
             {
                 MessageBox.Show("There are no available trains on the required route for the date. Please try again with different parameters.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
-            }
-            MainFrame.Content = new BuyTicket(MainFrame, quickReservations);
+            }          
+            MainFrame.Content = new BuyTicket(this, MainFrame, ref quickReservations, date, Int32.Parse(numberOfTickets));
         }
     }
 }

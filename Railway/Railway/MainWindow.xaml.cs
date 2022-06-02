@@ -25,7 +25,16 @@ namespace Railway
             InitializeComponent();
             MainFrame.Content = new SearchRoute(MainFrame);
             //MainFrame.Content = new AddTrainRoute();
-            //MainFrame.Content = new BuyTicket(MainFrame, new List<Model.QuickReservation>());
+            /*List<Model.QuickReservation> list = new List<Model.QuickReservation>();
+            List<string> allStations = new List<string>();
+            allStations.Add("Zrenjanin");
+            allStations.Add("Novi Sad");
+            DateTime departure = new DateTime(2022, 6, 6, 8, 0, 0);
+            DateTime arrival = new DateTime(2022, 6, 6, 8, 52, 0);
+            Model.Timetable timetable = new Model.Timetable(new Model.Train("Soko", 22), null, new DateTime(), new DateTime(), null);
+            Model.QuickReservation res = new Model.QuickReservation("Zrenjanin", "Novi Sad", allStations, null, timetable, departure, arrival, 100, 52);
+            list.Add(res);
+            MainFrame.Content = new BuyTicket(MainFrame, list);*/
         }
     }
 }

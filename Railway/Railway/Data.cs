@@ -310,7 +310,8 @@ namespace Railway
             {
                 if (trainline.ContainsStations(startStation, endStation))
                 {
-                    quickReservations = new List<QuickReservation>();
+                    if (quickReservations == null)
+                        quickReservations = new List<QuickReservation>();
                     foreach (Timetable timetable in trainline.Timetables)
                     {
                         if (timetable.ContainsDay(travelDate) && timetable.HaveTicketsAvailable(startStation, endStation, travelDate, numOfTickets))

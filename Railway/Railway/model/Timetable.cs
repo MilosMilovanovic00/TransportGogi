@@ -48,7 +48,8 @@ namespace Railway.Model
             int takenSeats = 0;
             foreach (Ticket ticket in BoughtTickets)
             {
-                if ((ticket.Date.Date.CompareTo(travelDate.Date) == 0) && TicketInRange(ticket, startStation, endStation)) {
+                int dateDifference = ticket.Date.Date.CompareTo(travelDate.Date);
+                if ((dateDifference == 0) && TicketInRange(ticket, startStation, endStation)) {
                     takenSeats += ticket.NumberOfPassengers;
                 }
             }

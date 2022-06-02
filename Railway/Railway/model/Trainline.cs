@@ -41,6 +41,24 @@ namespace Railway.Model
             return stationNames;
         }
 
+        public Station getStation(String stationName)
+        {
+            Station currentStation = FirstStation;
+            while (currentStation.PathToNextStation != null)
+            {
+                if (currentStation.Name.Equals(stationName))
+                {
+                    return currentStation;
+                }             
+                currentStation = currentStation.PathToNextStation.NextStation;
+            }
+            if (currentStation.Name.Equals(stationName))
+            {
+                return currentStation;
+            }
+            return null;
+
+        }
         public bool ContainsStations(string stationOne, string stationTwo)
         {
             bool containsOne = false;

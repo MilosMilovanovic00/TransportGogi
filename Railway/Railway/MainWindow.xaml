@@ -30,6 +30,6 @@
             <RowDefinition Height="70*"/>
             <RowDefinition Height="15*"/>
         </Grid.RowDefinitions>
-        <Frame x:Name="MainFrame" Grid.Row="0" Grid.RowSpan="3" Grid.Column="0" Grid.ColumnSpan="3" NavigationUIVisibility="Hidden"/>
+        <Frame x:Name="MainFrame" Grid.Row="0" Grid.RowSpan="3" Grid.Column="0" Grid.ColumnSpan="3" />
     </Grid>
 </Window>

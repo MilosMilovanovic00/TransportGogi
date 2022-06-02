@@ -8,7 +8,7 @@
       d:DesignHeight="430" d:DesignWidth="750"
       Title="BuyTicket">
 
-    <Grid>
+    <Grid Background="White">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="5*"/>
             <ColumnDefinition Width="90*"/>
