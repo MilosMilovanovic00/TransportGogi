@@ -23,7 +23,8 @@ namespace Railway
         public MainWindow()
         {
             InitializeComponent();
-            MainFrame.Content = new SearchRoute(MainFrame);
+            //MainFrame.Content = new SearchRoute(MainFrame);
+            MainFrame.Content = new AddingStation(MainFrame);
             //MainFrame.Content = new AddTrainRoute();
             /*List<Model.QuickReservation> list = new List<Model.QuickReservation>();
             List<string> allStations = new List<string>();
