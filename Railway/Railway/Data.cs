@@ -11,6 +11,7 @@ namespace Railway
     {
         private static List<Railroad> RailwayStates { get; set; }
         private static int RailwayIndex { get; set; }
+        private static List<Station> Stations { get; set; }
         public static Railroad FillData()
         {
             Data.RailwayStates = new List<Railroad>();
@@ -46,35 +47,53 @@ namespace Railway
             DateTime time13 = new DateTime(2022, 6, 6, 22, 5, 0);
             DateTime time14 = new DateTime(2022, 6, 6, 22, 20, 0);
 
+            List<Station> stations = new List<Station>();
             Station subotica = new Station("Subotica", 19.667587, 46.100376);
+            stations.Add(subotica);
             Station subotica1 = new Station("Subotica", 19.667587, 46.100376);
             Station zrenjanin = new Station("Zrenjanin", 20.38194, 45.38361);
+            stations.Add(zrenjanin);
             Station zrenjanin1 = new Station("Zrenjanin", 20.38194, 45.38361);
             Station noviSad = new Station("Novi Sad", 19.833549, 45.267136);
+            stations.Add(noviSad);
             Station noviSad1 = new Station("Novi Sad", 19.833549, 45.267136);
             Station noviSad2 = new Station("Novi Sad", 19.833549, 45.267136);
             Station staraPazova = new Station("Stara Pazova", 19.833549, 45.267136);
+            stations.Add(staraPazova);
             Station staraPazova1 = new Station("Stara Pazova", 19.833549, 45.267136);
             Station beograd = new Station("Beograd Centar", 20.394058, 44.854897);
+            stations.Add(beograd);
             Station beograd1 = new Station("Beograd Centar", 20.394058, 44.854897);
             Station beograd2 = new Station("Beograd Centar", 20.394058, 44.854897);
             Station beograd3 = new Station("Beograd Centar", 20.394058, 44.854897);
             Station kragujevac = new Station("Kragujevac", 20.91667, 44.01667);
+            stations.Add(kragujevac);
             Station kragujevac1 = new Station("Kragujevac", 20.91667, 44.01667);
             Station smederevo = new Station("Smederevo", 20.93, 44.66278);
+            stations.Add(smederevo);
             Station jagodina = new Station("Jagodina", 21.26121, 43.97713);
+            stations.Add(jagodina);
             Station knjazevac = new Station("Knjaževac", 22.25701, 43.56634);
+            stations.Add(knjazevac);
             Station knjazevac1 = new Station("Knjaževac", 22.25701, 43.56634);
             Station bor = new Station("Bor", 22.09591, 44.07488);
+            stations.Add(bor);
             Station valjevo = new Station("Valjevo", 19.89821, 44.27513);
+            stations.Add(valjevo);
             Station mladenovac = new Station("Mladenovac", 20.693852, 44.436436);
+            stations.Add(mladenovac);
             Station nis = new Station("Niš", 21.90333, 43.32472);
+            stations.Add(nis);
             Station vranje = new Station("Vranje", 21.90028, 42.55139);
+            stations.Add(vranje);
             Station vranje1 = new Station("Vranje", 21.90028, 42.55139);
             Station uzice = new Station("Užice", 19.84878, 43.85861);
+            stations.Add(uzice);
             Station sabac = new Station("Šabac", 19.69, 44.74667);
+            stations.Add(sabac);
             Station sabac1 = new Station("Šabac", 19.69, 44.74667);
 
+            Stations = stations;
 
             Path path1 = new Path(subotica, zrenjanin, 45, 230);
             Path path11 = new Path(zrenjanin, noviSad, 30, 170);
@@ -269,12 +288,15 @@ namespace Railway
 
             Railroad railway = new Railroad(trainlines);
 
+
+
             Data.AddRailway(railway);
             Data.SetRailwayIndex(0);
             return railway;
 
         }
 
+        
         private static void AddRailway(Railroad railway)
         {
             Data.RailwayStates.Add(railway);
@@ -283,6 +305,10 @@ namespace Railway
         private static void SetRailwayIndex(int index)
         {
             Data.RailwayIndex = index;
+        }
+
+        public static List<Station> getStations() {
+            return Stations;
         }
 
         public static List<string> GetStationNames()

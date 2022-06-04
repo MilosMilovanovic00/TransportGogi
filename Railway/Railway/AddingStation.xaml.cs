@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.Maps.MapControl.WPF;
+using Railway.Model;
 
 namespace Railway
 {
@@ -21,6 +23,8 @@ namespace Railway
     public partial class AddingStation : Page
     {
 
+        private Pushpin lastPushpin;
+
         public AddingStation(Frame mainFrame)
         {
             InitializeComponent();
@@ -29,17 +33,52 @@ namespace Railway
         private void Ellipse_MouseMove(object sender, MouseEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed) {
+                mapa.Children.Remove(lastPushpin);
                 DragDrop.DoDragDrop(LocationPoint, LocationPoint, DragDropEffects.Move);
             }
         }
 
         private void Map_Loaded(object sender, RoutedEventArgs e)
         {
-
-            //oznaci sve lokacije koje vec postoje
-            //mapa.ZoomLevel = 9;
-            //mapa.Center = new Microsoft.Maps.MapControl.WPF.Location(44.785197, 20.668373);
+            Data.FillData();
+            Location location = null;
+            foreach (var item in Data.getStations())
+            {
+                location = new Location(item.Latitude,item.Longitude);
+                Pushpin pushpin = new Pushpin();
+                pushpin.Location = location;
+                mapa.Children.Add(pushpin);
+            }
         }
 
+        private void mapa_Drop(object sender, DragEventArgs e)
+        {
+            e.Handled = true;
+            Point mousePosition = e.GetPosition(this.mapa);
+            Location pinLocation = mapa.ViewportPointToLocation(mousePosition);
+            MessageBox.Show("Position you want to add is on latitude:"+pinLocation.Latitude + " and longitude:" + pinLocation.Longitude);
+            Pushpin pin = new Pushpin();
+            pin.Location = pinLocation;
+            lastPushpin = pin;
+            mapa.Children.Add(lastPushpin);
+        }
+
+        private void addStation_Click(object sender, RoutedEventArgs e)
+        {
+            string stationName = station_name.Text;
+            if (stationName == "" || stationName == null)
+            {
+                MessageBox.Show("You need to type station name.");
+            }
+            else
+            {
+                MessageBoxResult messageBoxResult = MessageBox.Show("Are you sure?", "Creating new station confirmation", System.Windows.MessageBoxButton.YesNo);
+                if (messageBoxResult == MessageBoxResult.Yes)
+                {
+                    Station station = new Station(stationName, lastPushpin.Location.Longitude, lastPushpin.Location.Latitude);
+                    Data.getStations().Add(station);
+                }
+            }
+        }
     }
 }
