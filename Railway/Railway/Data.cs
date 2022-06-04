@@ -12,6 +12,7 @@ namespace Railway
         private static List<Railroad> RailwayStates { get; set; }
         private static int RailwayIndex { get; set; }
         private static List<Station> Stations { get; set; }
+        public static Trainline Trainline { get; set; }
         public static Railroad FillData()
         {
             Data.RailwayStates = new List<Railroad>();
@@ -258,6 +259,8 @@ namespace Railway
             timetable1.Trainline = trainline1;
             timetable11.Trainline = trainline1;
 
+            
+
             Trainline trainline2 = new Trainline(beograd1, vranje, timetables2);
             timetable2.Trainline = trainline2;
             timetable22.Trainline = trainline2;
@@ -272,7 +275,7 @@ namespace Railway
             Trainline trainline4 = new Trainline(noviSad1, kragujevac, timetables4);
             timetable4.Trainline = trainline4;
 
-            Trainline trainline5 = new Trainline(sabac, staraPazova1, timetables5);
+            Trainline trainline5 = new Trainline(sabac, staraPazova1, timetables5); 
             timetable5.Trainline = trainline5;
             timetable55.Trainline = trainline5;
             timetable555.Trainline = trainline5;
@@ -284,6 +287,7 @@ namespace Railway
             Trainline trainline7 = new Trainline(sabac1, knjazevac1, timetables7);
             timetable7.Trainline = trainline7;
 
+            Trainline = trainline5;
             List<Trainline> trainlines = new List<Trainline>() { trainline1, trainline2, trainline3, trainline4, trainline5, trainline6, trainline7 };
 
             Railroad railway = new Railroad(trainlines);

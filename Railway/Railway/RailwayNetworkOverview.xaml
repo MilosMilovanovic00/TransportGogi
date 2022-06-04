@@ -16,19 +16,23 @@
         <Grid.RowDefinitions>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Grid.Background>
-            <VisualBrush>
-                <VisualBrush.Visual>
-                    <Grid ClipToBounds="True">
-                        <Image Source="./images/background.png">
-                            <Image.Effect>
-                                <BlurEffect Radius="20"/>
-                            </Image.Effect>
-                        </Image>
-                    </Grid>
-                </VisualBrush.Visual>
-            </VisualBrush>
-        </Grid.Background>
-
+        <WPF:Map x:Name="mapa" 
+            ZoomLevel="7"
+            HorizontalAlignment="Center" 
+            VerticalAlignment="Center"
+            Height="450"
+            Width="800"
+            CredentialsProvider="Z22NcVTmQLM7xdYB3JUH~2KTwUSVQ71smVR32aiHY7w~AgpJmZQy6EajKEtAjchqViLmh3PuMYWUtoYG8xreQEA7JeI_9fruGjOQcQTfCrdy">
+            <WPF:MapPolyline Stroke="Blue" StrokeThickness="5" Opacity="0.7" Locations="{Binding Locations}">
+                
+            </WPF:MapPolyline>
+            <WPF:MapItemsControl ItemsSource="{Binding Stations, UpdateSourceTrigger=PropertyChanged}" >
+                <WPF:MapItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <WPF:Pushpin Location="{Binding Location}"></WPF:Pushpin>
+                    </DataTemplate>
+                </WPF:MapItemsControl.ItemTemplate>
+            </WPF:MapItemsControl>
+        </WPF:Map>
     </Grid>
 </Page>

@@ -24,33 +24,27 @@ namespace Railway
     {
 
         public Trainline Trainline { get; set; }
-
-
-
+        public List<Station> Stations { get; set; }
+        public LocationCollection Locations { get; set; }
         public RailwayNetworkOverview(Frame mainFrame,Trainline trainline)
         {
             this.DataContext = this;
-            Trainline = trainline;
-            Map map = new Map();
-            map.ZoomLevel = 9;
-            map.Center = new Location(44.785197, 20.668373);
-            MapPolyline polyline = new MapPolyline();
-            polyline.Stroke = new SolidColorBrush(Colors.Blue);
-            polyline.StrokeThickness = 5;
-            polyline.Opacity = 0.7;
+            
+            List<Station> stations = new List<Station>();
             LocationCollection locations = new LocationCollection();
-            Station currentStation = Trainline.FirstStation;
+            Station currentStation = trainline.FirstStation;
             while (currentStation.PathToNextStation != null)
             {
-                currentStation = currentStation.PathToNextStation.NextStation;
+                stations.Add(currentStation);
                 locations.Add(currentStation.Location);
-                Pushpin pin = new Pushpin();
-                pin.Location = currentStation.Location;
-                map.Children.Add(pin);
+                currentStation = currentStation.PathToNextStation.NextStation;
             }
-            map.Children.Add(polyline);
-            railwayNetworkOverviewGrid.Children.Add(map);
+            stations.Add(currentStation);
+            locations.Add(currentStation.Location);
+            Stations = stations;
+            Locations = locations;
             InitializeComponent();
+            mapa.Center = trainline.FirstStation.Location;
         }
     }
 }
