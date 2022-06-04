@@ -27,3 +27,5 @@ D:\siit\HCI\Proj2\TransportGogi\Railway\Railway\bin\Debug\MaterialDesignThemes.W
 D:\siit\HCI\Proj2\TransportGogi\Railway\Railway\obj\Debug\Railway.csproj.CopyComplete
 D:\siit\HCI\Proj2\TransportGogi\Railway\Railway\obj\Debug\Railway.csproj.AssemblyReference.cache
 D:\siit\HCI\Proj2\TransportGogi\Railway\Railway\obj\Debug\Railway.csproj.SuggestedBindingRedirects.cache
+D:\siit\HCI\Proj2\TransportGogi\Railway\Railway\obj\Debug\TicketHistory.g.cs
+D:\siit\HCI\Proj2\TransportGogi\Railway\Railway\obj\Debug\TicketHistory.baml

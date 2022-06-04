@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Railway.model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,14 +10,17 @@ namespace Railway.Model
     public class Railroad
     {
         public List<Trainline> TrainLines { get; set; }
+        public List<User> Users { get; set; }
         public Railroad()
         {
             TrainLines = new List<Trainline>();
+            Users = new List<User>();
         }
 
-        public Railroad(List<Trainline> trainLines)
+        public Railroad(List<Trainline> trainLines, List<User> users)
         {
             TrainLines = trainLines;
+            Users = users;
         }
         public Railroad DeepCopy()
         {        

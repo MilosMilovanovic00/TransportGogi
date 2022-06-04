@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Railway.model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,11 +22,15 @@ namespace Railway
     public partial class MainWindow : Window
     {
         public string CurrentPage { get; set; }
-        public SearchRoute SearchRoute { get; set; }   
+        public SearchRoute SearchRoute { get; set; } 
+        public TicketHistory TicketHistory { get; set; }
         public MainWindow()
         {
             InitializeComponent();
-            SearchRoute = new SearchRoute(MainFrame);
+            Data.FillData();
+            User logedUser = Data.GetLogedUser("pera", "pera");
+            SearchRoute = new SearchRoute(MainFrame, logedUser);
+            TicketHistory = new TicketHistory(logedUser);
             MainFrame.Content = SearchRoute;
             CurrentPage = "SearchRoute";
             //MainFrame.Content = new AddTrainRoute();
@@ -46,22 +51,28 @@ namespace Railway
             //stek.Children.Add(btn);
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Button_Click_ShowSearchRoute(object sender, RoutedEventArgs e)
         {
             MainFrame.Content = SearchRoute;
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void Button_Click_Undo(object sender, RoutedEventArgs e)
         {
             Data.Undo();
             SearchRoute.BuyTicket.QuickReservations = SearchRoute.GetQuickReservations();
             SearchRoute.BuyTicket.RefreshPage();          
         }
-        private void Button_Click_2(object sender, RoutedEventArgs e)
+        private void Button_Click_Redo(object sender, RoutedEventArgs e)
         {
             Data.Redo();
             SearchRoute.BuyTicket.QuickReservations = SearchRoute.GetQuickReservations();
             SearchRoute.BuyTicket.RefreshPage();
+        }
+
+        private void Button_Click_ShowTicketHistory(object sender, RoutedEventArgs e)
+        {
+            TicketHistory.RefreshPage();
+            MainFrame.Content = TicketHistory;
         }
     }
 }

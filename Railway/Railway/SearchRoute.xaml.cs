@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Railway.model;
 using Railway.Model;
 namespace Railway
 {
@@ -26,11 +27,12 @@ namespace Railway
         public DateTime Date { get; set; }
         public Frame MainFrame { get; set; }
         public BuyTicket BuyTicket { get; set; }
-        public SearchRoute(Frame mainFrame)
+        public User LogedUser { get; set; }
+        public SearchRoute(Frame mainFrame, User logedUser)
         {
             InitializeComponent();
             MainFrame = mainFrame;
-            Data.FillData();
+            LogedUser = logedUser;
             List<string> stationNames = Data.GetStationNames();
             {
                 foreach (string stationName in stationNames)
@@ -103,7 +105,7 @@ namespace Railway
                 MessageBox.Show("There are no available trains on the required route for the date. Please try again with different parameters.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
-            BuyTicket = new BuyTicket(this, MainFrame, ref quickReservations, Date, Int32.Parse(numberOfTickets));
+            BuyTicket = new BuyTicket(this, MainFrame, ref quickReservations, Date, Int32.Parse(numberOfTickets), LogedUser);
             MainFrame.Content = BuyTicket;
         }
         public List<QuickReservation> GetQuickReservations()

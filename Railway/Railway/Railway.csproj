@@ -72,8 +72,12 @@
       <DependentUpon>BuyTicket.xaml</DependentUpon>
     </Compile>
     <Compile Include="Data.cs" />
+    <Compile Include="model\User.cs" />
     <Compile Include="SearchRoute.xaml.cs">
       <DependentUpon>SearchRoute.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TicketHistory.xaml.cs">
+      <DependentUpon>TicketHistory.xaml</DependentUpon>
     </Compile>
     <Page Include="AddTrainRoute.xaml">
       <SubType>Designer</SubType>
@@ -96,6 +100,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="SearchRoute.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TicketHistory.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

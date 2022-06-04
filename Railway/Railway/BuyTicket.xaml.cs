@@ -1,4 +1,5 @@
-﻿using Railway.Model;
+﻿using Railway.model;
+using Railway.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,15 +28,17 @@ namespace Railway
         public DateTime Date { get; set; }
         public int NumberOfPassengers { get; set; }
         public Page SearchRoute { get; set; }
-        public BuyTicket(Page searchRoute, Frame mainFrame, ref List<QuickReservation> quickReservations, DateTime date, int numberOfPassengers)
+        public User LogedUser { get; set; }
+        public BuyTicket(Page searchRoute, Frame mainFrame, ref List<QuickReservation> quickReservations, DateTime date, int numberOfPassengers, User logedUser)
         {
             InitializeComponent();
             MainFrame = mainFrame;
             SearchRoute = searchRoute;
             QuickReservations = quickReservations;
-            DisplayQuickReservations();
+            LogedUser = logedUser;
             Date = date;
             NumberOfPassengers = numberOfPassengers;
+            DisplayQuickReservations();
         }
 
         private void DisplayQuickReservations()
@@ -189,7 +192,8 @@ namespace Railway
             QuickReservation reservation = (QuickReservation)((Button)sender).Tag;
             Station firstStation = reservation.Trainline.getStation(reservation.FirstStation);
             Station lastStation = reservation.Trainline.getStation(reservation.LastStation);
-            Ticket ticket = new Ticket(firstStation, lastStation, Date, NumberOfPassengers);
+            DateTime ticketDate = new DateTime(Date.Year, Date.Month, Date.Day, reservation.DepartureTime.Hour, reservation.DepartureTime.Minute, 0);
+            Ticket ticket = new Ticket(LogedUser, firstStation, lastStation, ticketDate, NumberOfPassengers, reservation.Price, reservation.Duration, reservation.Timetable.Train);
             string parameters = "Departure: " + reservation.DepartureTime.ToString("dd.MM.yyyy. hh:mm'h'") + ", " + reservation.FirstStation  + "\nArrival: " + reservation.ArrivalTime.ToString("dd.MM.yyyy. hh:mm'h'") + ", " + reservation.LastStation + "\nPrice: " + reservation.Price  + " rsd" + "\nDuration: " + reservation.Duration + " minutes";
             int response = (int)MessageBox.Show("Are you sure you want to buy ticket with these parameters?\n" + parameters, "Question", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (response == 6)
