@@ -25,13 +25,13 @@ namespace Railway
         public string StartStation { get; set; }
         public string EndStation { get; set; }
         public DateTime Date { get; set; }
-        public Frame MainFrame { get; set; }
+        public MainWindow MainWindow { get; set; }
         public BuyTicket BuyTicket { get; set; }
         public User LogedUser { get; set; }
-        public SearchRoute(Frame mainFrame, User logedUser)
+        public SearchRoute(MainWindow mainWindow, User logedUser)
         {
             InitializeComponent();
-            MainFrame = mainFrame;
+            MainWindow = mainWindow;
             LogedUser = logedUser;
             List<string> stationNames = Data.GetStationNames();
             {
@@ -105,8 +105,8 @@ namespace Railway
                 MessageBox.Show("There are no available trains on the required route for the date. Please try again with different parameters.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
-            BuyTicket = new BuyTicket(this, MainFrame, ref quickReservations, Date, Int32.Parse(numberOfTickets), LogedUser);
-            MainFrame.Content = BuyTicket;
+            BuyTicket = new BuyTicket(MainWindow, ref quickReservations, Date, Int32.Parse(numberOfTickets), LogedUser);
+            MainWindow.ShowBuyTicket(BuyTicket);
         }
         public List<QuickReservation> GetQuickReservations()
         {

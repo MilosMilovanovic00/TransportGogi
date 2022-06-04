@@ -23,17 +23,15 @@ namespace Railway
     /// </summary>
     public partial class BuyTicket : Page
     {      
-        public Frame MainFrame { get; set; }
         public List<QuickReservation> QuickReservations { get; set; }
         public DateTime Date { get; set; }
         public int NumberOfPassengers { get; set; }
-        public Page SearchRoute { get; set; }
         public User LogedUser { get; set; }
-        public BuyTicket(Page searchRoute, Frame mainFrame, ref List<QuickReservation> quickReservations, DateTime date, int numberOfPassengers, User logedUser)
+        public MainWindow MainWindow { get; set; }
+        public BuyTicket(MainWindow mainWindow, ref List<QuickReservation> quickReservations, DateTime date, int numberOfPassengers, User logedUser)
         {
             InitializeComponent();
-            MainFrame = mainFrame;
-            SearchRoute = searchRoute;
+            MainWindow = mainWindow;
             QuickReservations = quickReservations;
             LogedUser = logedUser;
             Date = date;
@@ -77,7 +75,7 @@ namespace Railway
             if (!addedQuickReservation)
             {
                 MessageBox.Show("Unfortunately, all tickets for this route are bought, please search again for other routes.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                MainFrame.Content = SearchRoute;
+                MainWindow.ShowSearchRoute();
             }
         }
         private Border MakeBorder()
@@ -212,6 +210,7 @@ namespace Railway
         }
         public void RefreshPage()
         {
+            MainWindow.TryDisableUndoRedo();
             DisplayBuyTicket.Children.RemoveRange(0, DisplayBuyTicket.Children.Count);
             DisplayBuyTicket.Height = 0;
             this.DisplayQuickReservations();

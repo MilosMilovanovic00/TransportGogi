@@ -25,12 +25,11 @@
                 <ColumnDefinition Width="50*"/>
             </Grid.ColumnDefinitions>
             <StackPanel x:Name="navbar" Grid.Row="0" Orientation="Horizontal" Grid.Column="0">
-                <Button  BorderThickness="0" Width="130" Height="40" FontSize="18" VerticalAlignment="Center" Content="Search ticket" Background="#00b0ff" Foreground="FloralWhite" Click="Button_Click_ShowSearchRoute"/>
-                <Button  BorderThickness="0" Width="130" Height="40" FontSize="18" VerticalAlignment="Center" Content="Ticket history" Background="#00b0ff" Foreground="FloralWhite" Click="Button_Click_ShowTicketHistory"/>
+                <Button  BorderThickness="0" Width="130" FontSize="18" Content="Search ticket" Background="#00b0ff" Foreground="FloralWhite" Click="Button_Click_ShowSearchRoute"/>
+                <Button  BorderThickness="0" Width="130" FontSize="18" Content="Ticket history" Background="#00b0ff" Foreground="FloralWhite" Click="Button_Click_ShowTicketHistory"/>
             </StackPanel>
             <StackPanel x:Name="undoRedo" Grid.Row="0" Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right">
-                <Button BorderThickness="0" Width="100" Height="40" FontSize="18" VerticalAlignment="Center" Content="Undo" Background="#00b0ff" Foreground="FloralWhite" Click="Button_Click_Undo"/>
-                <Button BorderThickness="0" Width="100" Height="40" FontSize="18" VerticalAlignment="Center" Content="Redo" Background="#00b0ff" Foreground="FloralWhite" Click="Button_Click_Redo"/>
+                
             </StackPanel>
         </Grid>
 

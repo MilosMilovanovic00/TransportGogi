@@ -338,6 +338,14 @@ namespace Railway
             Data.RailwayIndex = index;
         }
 
+        public static bool NeedUndo()
+        {
+            return RailwayIndex > 0;
+        }
+        public static bool NeedRedo()
+        {
+           return RailwayIndex < Data.RailwayStates.Count - 1;
+        }
         public static List<string> GetStationNames()
         {
             List<string> stationNames = new List<string>();
