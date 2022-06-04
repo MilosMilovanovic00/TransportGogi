@@ -23,9 +23,7 @@
             Height="450"
             Width="800"
             CredentialsProvider="Z22NcVTmQLM7xdYB3JUH~2KTwUSVQ71smVR32aiHY7w~AgpJmZQy6EajKEtAjchqViLmh3PuMYWUtoYG8xreQEA7JeI_9fruGjOQcQTfCrdy">
-            <WPF:MapPolyline Stroke="Blue" StrokeThickness="5" Opacity="0.7" Locations="{Binding Locations}">
-                
-            </WPF:MapPolyline>
+            <WPF:MapPolyline Stroke="Blue" StrokeThickness="5" Opacity="0.7" Locations="{Binding Locations}"/>
             <WPF:MapItemsControl ItemsSource="{Binding Stations, UpdateSourceTrigger=PropertyChanged}" >
                 <WPF:MapItemsControl.ItemTemplate>
                     <DataTemplate>

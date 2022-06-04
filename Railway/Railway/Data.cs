@@ -61,7 +61,7 @@ namespace Railway
             Station noviSad2 = new Station("Novi Sad", 19.833549, 45.267136);
             Station staraPazova = new Station("Stara Pazova", 19.833549, 45.267136);
             stations.Add(staraPazova);
-            Station staraPazova1 = new Station("Stara Pazova", 19.833549, 45.267136);
+            Station staraPazova1 = new Station("Stara Pazova", 20.1608300, 44.9850000);
             Station beograd = new Station("Beograd Centar", 20.394058, 44.854897);
             stations.Add(beograd);
             Station beograd1 = new Station("Beograd Centar", 20.394058, 44.854897);
