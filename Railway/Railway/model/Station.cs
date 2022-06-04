@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Maps.MapControl.WPF;
 
 namespace Railway.Model
 {
@@ -11,6 +12,7 @@ namespace Railway.Model
         public string Name { get; set; }
         public double Longitude { get; set; }
         public double Latitude { get; set; }
+        public Location Location { get; set; } 
         public Path PathToNextStation { get; set; }
         public Path PathToPreviousStation { get; set; }
 
@@ -23,6 +25,7 @@ namespace Railway.Model
             Latitude = latitude;
             PathToNextStation = pathToNextStation;
             PathToPreviousStation = pathToPreviousStation;
+            Location = new Location(latitude, longitude);
         }
 
         public override string ToString()
@@ -35,6 +38,7 @@ namespace Railway.Model
             Name = name;
             Longitude = longitude;
             Latitude = latitude;
+            Location = new Location(latitude, longitude);
         }
     }
 }

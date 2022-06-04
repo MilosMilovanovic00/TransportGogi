@@ -46,3 +46,5 @@ D:\TrecaGodina\Interakcija covek racunar\PROJEKAT\TransportGogi\Railway\Railway\
 D:\TrecaGodina\Interakcija covek racunar\PROJEKAT\TransportGogi\Railway\Railway\bin\Debug\Microsoft.Maps.MapControl.WPF.dll
 D:\TrecaGodina\Interakcija covek racunar\PROJEKAT\TransportGogi\Railway\Railway\bin\Debug\Microsoft.Maps.MapControl.WPF.xml
 D:\TrecaGodina\Interakcija covek racunar\PROJEKAT\TransportGogi\Railway\Railway\obj\Debug\AddingStation.baml
+D:\TrecaGodina\Interakcija covek racunar\PROJEKAT\TransportGogi\Railway\Railway\obj\Debug\RailwayNetworkOverview.g.cs
+D:\TrecaGodina\Interakcija covek racunar\PROJEKAT\TransportGogi\Railway\Railway\obj\Debug\RailwayNetworkOverview.baml

@@ -7,7 +7,7 @@
       xmlns:WPF="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF" x:Class="Railway.AddingStation"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="Page1">
+      Title="AddingStation">
 
     <Grid x:Name="addingStationGrid" >
         <Grid.Background>
@@ -57,8 +57,7 @@
             MouseMove="Ellipse_MouseMove" Grid.Column="1" 
             x:Name="LocationPoint" Fill="Red" HorizontalAlignment="Center" Height="30" Stroke="Black" VerticalAlignment="Center" Width="30" />
         </Grid>
-        <WPF:Map 
-                 x:Name="mapa"
+        <WPF:Map x:Name="mapa"
                  AllowDrop="True"
                  Grid.Column="3"
                  Grid.ColumnSpan="1"
@@ -68,9 +67,15 @@
                  Margin="10" 
                  ZoomLevel="9"
                  Center="44.785197, 20.668373"
-                 Loaded="Map_Loaded"
                  Drop="mapa_Drop"
-                 CredentialsProvider="Z22NcVTmQLM7xdYB3JUH~2KTwUSVQ71smVR32aiHY7w~AgpJmZQy6EajKEtAjchqViLmh3PuMYWUtoYG8xreQEA7JeI_9fruGjOQcQTfCrdy" Width="391"
-            />
+                 CredentialsProvider="Z22NcVTmQLM7xdYB3JUH~2KTwUSVQ71smVR32aiHY7w~AgpJmZQy6EajKEtAjchqViLmh3PuMYWUtoYG8xreQEA7JeI_9fruGjOQcQTfCrdy" Width="391">
+            <WPF:MapItemsControl ItemsSource="{Binding Stations, UpdateSourceTrigger=PropertyChanged}" >
+                <WPF:MapItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <WPF:Pushpin Location="{Binding Location}"></WPF:Pushpin>
+                    </DataTemplate>
+                </WPF:MapItemsControl.ItemTemplate>
+            </WPF:MapItemsControl>
+        </WPF:Map>
     </Grid>
 </Page>
