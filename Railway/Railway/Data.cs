@@ -205,64 +205,64 @@ namespace Railway
             List<Ticket> tickets5 = new List<Ticket>() { ticket5, ticket55 };
             List<Ticket> tickets55 = new List<Ticket>() { ticket55 };
 
-            Timetable timetable1 = new Timetable(train1, days1, time1, time6, tickets1);
-            Timetable timetable11 = new Timetable(train2, days2, time2, time7, tickets11);
+            Timetable timetable1 = new Timetable("Red voznje 11", train1, days1, time1, time6, tickets1);
+            Timetable timetable11 = new Timetable("Red voznje 12", train2, days2, time2, time7, tickets11);
             List<Timetable> timetables1 = new List<Timetable>() { timetable1, timetable11 };
 
-            Timetable timetable2 = new Timetable(train2, days3, time3, time9, tickets2);
-            Timetable timetable22 = new Timetable(train3, days4, time4, time10, tickets22);
-            Timetable timetable222 = new Timetable(train4, days5, time5, time13, tickets222);
+            Timetable timetable2 = new Timetable("Red voznje 21", train2, days3, time3, time9, tickets2);
+            Timetable timetable22 = new Timetable("Red voznje 22", train3, days4, time4, time10, tickets22);
+            Timetable timetable222 = new Timetable("Red voznje 23", train4, days5, time5, time13, tickets222);
             List<Timetable> timetables2 = new List<Timetable>() { timetable2, timetable22, timetable222 };
 
-            Timetable timetable3 = new Timetable(train1, days6, time6, time9, tickets3);
-            Timetable timetable33 = new Timetable(train1, days7, time7, time10, tickets33);
-            Timetable timetable333 = new Timetable(train4, days8, time8, time11, tickets333);
-            Timetable timetable3333 = new Timetable(train4, days9, time9, time14, tickets3333);
+            Timetable timetable3 = new Timetable("Red voznje 31", train1, days6, time6, time9, tickets3);
+            Timetable timetable33 = new Timetable("Red voznje 32", train1, days7, time7, time10, tickets33);
+            Timetable timetable333 = new Timetable("Red voznje 33", train4, days8, time8, time11, tickets333);
+            Timetable timetable3333 = new Timetable("Red voznje 34", train4, days9, time9, time14, tickets3333);
             List<Timetable> timetables3 = new List<Timetable>() { timetable3, timetable33, timetable333, timetable3333 };
 
-            Timetable timetable4 = new Timetable(train2, days10, time7, time14, tickets4);
+            Timetable timetable4 = new Timetable("Red voznje 41", train2, days10, time7, time14, tickets4);
             List<Timetable> timetables4 = new List<Timetable>() { timetable4 };
 
-            Timetable timetable5 = new Timetable(train1, days9, time1, time11, tickets5);
-            Timetable timetable55 = new Timetable(train3, days3, time2, time12, tickets5);
-            Timetable timetable555 = new Timetable(train3, days2, time3, time13, tickets55);
+            Timetable timetable5 = new Timetable("Red voznje 51", train1, days9, time1, time11, tickets5);
+            Timetable timetable55 = new Timetable("Red voznje 52", train3, days3, time2, time12, tickets5);
+            Timetable timetable555 = new Timetable("Red voznje 53", train3, days2, time3, time13, tickets55);
             List<Timetable> timetables5 = new List<Timetable>() { timetable5, timetable55, timetable555 };
 
-            Timetable timetable6 = new Timetable(train2, days1, time3, time7, new List<Ticket>());
-            Timetable timetable66 = new Timetable(train4, days4, time6, time14, new List<Ticket>());
+            Timetable timetable6 = new Timetable("Red voznje 61", train2, days1, time3, time7, new List<Ticket>());
+            Timetable timetable66 = new Timetable("Red voznje 62", train4, days4, time6, time14, new List<Ticket>());
             List<Timetable> timetables6 = new List<Timetable>() { timetable6, timetable66 };
 
-            Timetable timetable7 = new Timetable(train2, days6, time2, time5, new List<Ticket>());
+            Timetable timetable7 = new Timetable("Red voznje 71", train2, days6, time2, time5, new List<Ticket>());
             List<Timetable> timetables7 = new List<Timetable>() { timetable7 };
 
-            Trainline trainline1 = new Trainline(subotica, beograd, timetables1);
+            Trainline trainline1 = new Trainline("Linija 1", subotica, beograd, timetables1);
             timetable1.Trainline = trainline1;
             timetable11.Trainline = trainline1;
 
-            Trainline trainline2 = new Trainline(beograd1, vranje, timetables2);
+            Trainline trainline2 = new Trainline("Linija 2", beograd1, vranje, timetables2);
             timetable2.Trainline = trainline2;
             timetable22.Trainline = trainline2;
             timetable222.Trainline = trainline2;
 
-            Trainline trainline3 = new Trainline(bor, knjazevac, timetables3);
+            Trainline trainline3 = new Trainline("Linija 3", bor, knjazevac, timetables3);
             timetable3.Trainline = trainline3;
             timetable33.Trainline = trainline3;
             timetable333.Trainline = trainline3;
             timetable3333.Trainline = trainline3;
 
-            Trainline trainline4 = new Trainline(noviSad1, kragujevac, timetables4);
+            Trainline trainline4 = new Trainline("Linija 4", noviSad1, kragujevac, timetables4);
             timetable4.Trainline = trainline4;
 
-            Trainline trainline5 = new Trainline(sabac, staraPazova1, timetables5);
+            Trainline trainline5 = new Trainline("Linija 5", sabac, staraPazova1, timetables5);
             timetable5.Trainline = trainline5;
             timetable55.Trainline = trainline5;
             timetable555.Trainline = trainline5;
 
-            Trainline trainline6 = new Trainline(kragujevac1, subotica1, timetables6);
+            Trainline trainline6 = new Trainline("Linija 6", kragujevac1, subotica1, timetables6);
             timetable6.Trainline = trainline6;
             timetable66.Trainline = trainline6;
 
-            Trainline trainline7 = new Trainline(sabac1, knjazevac1, timetables7);
+            Trainline trainline7 = new Trainline("Linija 7", sabac1, knjazevac1, timetables7);
             timetable7.Trainline = trainline7;
 
             List<Trainline> trainlines = new List<Trainline>() { trainline1, trainline2, trainline3, trainline4, trainline5, trainline6, trainline7 };
@@ -300,6 +300,26 @@ namespace Railway
                 }
             }
             return stationNames;
+        }
+
+        public static List<QuickReservation> BuyTicket(QuickReservation reservation, Ticket ticket, string startStation, string endStation, DateTime travelDate, int numOfTickets)
+        {
+            Railroad oldRailway = Data.RailwayStates[Data.RailwayIndex];
+            Railroad newRailway = oldRailway.DeepCopy();
+            newRailway.AddBoughtTicket(reservation.Trainline, reservation.Timetable, ticket);
+            Data.AddRailway(newRailway);
+            Data.SetRailwayIndex(Data.RailwayIndex + 1);
+            return GetQuickReservations(startStation, endStation, travelDate, numOfTickets);
+        }    
+        
+        public static void Undo()
+        {
+            RailwayIndex--;
+        }
+
+        public static void Redo()
+        {
+            RailwayIndex++;
         }
 
         public static List<QuickReservation> GetQuickReservations(string startStation, string endStation, DateTime travelDate, int numOfTickets)

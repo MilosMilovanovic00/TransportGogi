@@ -20,10 +20,14 @@ namespace Railway
     /// </summary>
     public partial class MainWindow : Window
     {
+        public string CurrentPage { get; set; }
+        public SearchRoute SearchRoute { get; set; }   
         public MainWindow()
         {
             InitializeComponent();
-            MainFrame.Content = new SearchRoute(MainFrame);
+            SearchRoute = new SearchRoute(MainFrame);
+            MainFrame.Content = SearchRoute;
+            CurrentPage = "SearchRoute";
             //MainFrame.Content = new AddTrainRoute();
             /*List<Model.QuickReservation> list = new List<Model.QuickReservation>();
             List<string> allStations = new List<string>();
@@ -35,6 +39,29 @@ namespace Railway
             Model.QuickReservation res = new Model.QuickReservation("Zrenjanin", "Novi Sad", allStations, null, timetable, departure, arrival, 100, 52);
             list.Add(res);
             MainFrame.Content = new BuyTicket(MainFrame, list);*/
+            //Button btn = new Button();
+            //btn.Style = FindResource("MaterialDesignRaisedSecondaryButton") as Style;
+            //btn.Width = 100;
+            //btn.Content = "Alooo";
+            //stek.Children.Add(btn);
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Content = SearchRoute;
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            Data.Undo();
+            SearchRoute.BuyTicket.QuickReservations = SearchRoute.GetQuickReservations();
+            SearchRoute.BuyTicket.RefreshPage();          
+        }
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            Data.Redo();
+            SearchRoute.BuyTicket.QuickReservations = SearchRoute.GetQuickReservations();
+            SearchRoute.BuyTicket.RefreshPage();
         }
     }
 }

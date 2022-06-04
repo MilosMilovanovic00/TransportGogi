@@ -14,7 +14,16 @@ namespace Railway.Model
         public int Price { get; set; }
 
         public Path()  {}
-
+   
+        public Path DeepCopy()
+        {
+            Path newPath = new Path();
+            newPath.PreviousStation = PreviousStation.DeepCopy();
+            newPath.NextStation = NextStation.DeepCopy();
+            newPath.Duration = Duration;
+            newPath.Price = Price;
+            return newPath;
+        }
         public Path(Station previousStation, Station nextStation, int duration, int price)
         {
             PreviousStation = previousStation;

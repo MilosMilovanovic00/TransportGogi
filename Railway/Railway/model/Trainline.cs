@@ -8,6 +8,7 @@ namespace Railway.Model
 {
     public class Trainline
     {
+        public string Name { get; set; }
         public Station FirstStation { get; set; }
         public Station LastStation { get; set; }
         public List<Timetable> Timetables { get; set; }
@@ -16,11 +17,38 @@ namespace Railway.Model
             Timetables = new List<Timetable>();
         }
 
-        public Trainline(Station firstStation, Station lastStation, List<Timetable> timetables)
+        public Trainline(string name, Station firstStation, Station lastStation, List<Timetable> timetables)
         {
+            Name = name;
             FirstStation = firstStation;
             LastStation = lastStation;
             Timetables = timetables;
+        }
+
+        public Trainline DeepCopy()
+        {
+            Trainline newTrainline = new Trainline();
+            newTrainline.Name = Name;
+            newTrainline.FirstStation = FirstStation.DeepCopy();
+            newTrainline.LastStation = LastStation.DeepCopy();
+            foreach (Timetable timetable in Timetables)
+                newTrainline.AddTimetable(timetable.DeepCopy(newTrainline));
+            return newTrainline;
+        }
+
+        //MOGUCI PROBLEM AKO VRACA VALUE DA NE STAVI LEPO TICKET
+        public Timetable FindTimetable(String name)
+        {
+            foreach (Timetable timetable in Timetables)
+            {
+                if (timetable.Name.Equals(name))
+                    return timetable;
+            }
+            return null;
+        }
+        private void AddTimetable(Timetable timetable)
+        {
+            Timetables.Add(timetable);
         }
 
         public override string ToString()

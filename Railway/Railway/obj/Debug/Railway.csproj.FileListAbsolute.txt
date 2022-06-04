@@ -19,4 +19,11 @@ D:\siit\HCI\Proj2\TransportGogi\Railway\Railway\obj\Debug\SearchRoute.baml
 D:\siit\HCI\Proj2\TransportGogi\Railway\Railway\obj\Debug\AddTrainRoute.g.cs
 D:\siit\HCI\Proj2\TransportGogi\Railway\Railway\obj\Debug\AddTrainRoute.baml
 D:\siit\HCI\Proj2\TransportGogi\Railway\Railway\obj\Debug\App.baml
-D:\siit\HCI\Proj2\TransportGogi\Railway\Railway\obj\Debug\Railway.csprojAssemblyReference.cache
+D:\siit\HCI\Proj2\TransportGogi\Railway\Railway\bin\Debug\MaterialDesignColors.dll
+D:\siit\HCI\Proj2\TransportGogi\Railway\Railway\bin\Debug\MaterialDesignThemes.Wpf.dll
+D:\siit\HCI\Proj2\TransportGogi\Railway\Railway\bin\Debug\MaterialDesignColors.pdb
+D:\siit\HCI\Proj2\TransportGogi\Railway\Railway\bin\Debug\MaterialDesignThemes.Wpf.pdb
+D:\siit\HCI\Proj2\TransportGogi\Railway\Railway\bin\Debug\MaterialDesignThemes.Wpf.xml
+D:\siit\HCI\Proj2\TransportGogi\Railway\Railway\obj\Debug\Railway.csproj.CopyComplete
+D:\siit\HCI\Proj2\TransportGogi\Railway\Railway\obj\Debug\Railway.csproj.AssemblyReference.cache
+D:\siit\HCI\Proj2\TransportGogi\Railway\Railway\obj\Debug\Railway.csproj.SuggestedBindingRedirects.cache

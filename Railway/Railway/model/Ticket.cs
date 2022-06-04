@@ -17,6 +17,15 @@ namespace Railway.Model
         {
             Date = new DateTime();
         }
+        public Ticket DeepCopy()
+        {
+            Ticket newTicket = new Ticket();
+            newTicket.StartStation = StartStation.DeepCopy();
+            newTicket.EndStation = EndStation.DeepCopy();
+            newTicket.Date = Date;
+            newTicket.NumberOfPassengers = NumberOfPassengers;
+            return newTicket;
+        }
         public Ticket(Station startStation, Station endStation, DateTime date, int numberOfPassengers)
         {
             StartStation = startStation;

@@ -20,8 +20,12 @@ namespace Railway
     /// </summary>
     public partial class SearchRoute : Page
     {
-        string numberOfTickets = "1";
+        public string numberOfTickets = "1";
+        public string StartStation { get; set; }
+        public string EndStation { get; set; }
+        public DateTime Date { get; set; }
         public Frame MainFrame { get; set; }
+        public BuyTicket BuyTicket { get; set; }
         public SearchRoute(Frame mainFrame)
         {
             InitializeComponent();
@@ -35,6 +39,8 @@ namespace Railway
                     to.Items.Add(stationName);
                 }
             };
+            CalendarDateRange cdr = new CalendarDateRange(DateTime.MinValue, DateTime.Today.AddDays(-1));
+            travelDate.BlackoutDates.Add(cdr);
         }
 
         private void plusTicket_Click(object sender, RoutedEventArgs e)
@@ -60,34 +66,33 @@ namespace Railway
 
         private void searchRoute_Click(object sender, RoutedEventArgs e)
         {
-            string startStation = from.Text;
-            string endStation = to.Text;
-            DateTime date;
-            if (startStation == "")
+            StartStation = from.Text;
+            EndStation = to.Text;
+            if (StartStation == "")
             {
                 MessageBox.Show("Please enter staring station.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            else if (endStation == "")
+            else if (EndStation == "")
             {
                 MessageBox.Show("Please enter ending station.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            if (startStation.Equals(endStation))
+            if (StartStation.Equals(EndStation))
             {
                 MessageBox.Show("Starting and ending stations must be different.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
             try
             {
-                date = DateTime.Parse(travelDate.Text);
+                Date = DateTime.Parse(travelDate.Text);
             }
             catch
             {
                 MessageBox.Show("Please eneter travelling date.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            List<QuickReservation> quickReservations = Data.GetQuickReservations(startStation, endStation, date, Int32.Parse(numberOfTickets));           
+            List<QuickReservation> quickReservations = GetQuickReservations();
             if (quickReservations == null)
             {
                 MessageBox.Show("There is no direct route for searched trains. Please enter different stations.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -97,8 +102,13 @@ namespace Railway
             {
                 MessageBox.Show("There are no available trains on the required route for the date. Please try again with different parameters.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
-            }          
-            MainFrame.Content = new BuyTicket(this, MainFrame, ref quickReservations, date, Int32.Parse(numberOfTickets));
+            }
+            BuyTicket = new BuyTicket(this, MainFrame, ref quickReservations, Date, Int32.Parse(numberOfTickets));
+            MainFrame.Content = BuyTicket;
+        }
+        public List<QuickReservation> GetQuickReservations()
+        {
+            return Data.GetQuickReservations(StartStation, EndStation, Date, Int32.Parse(numberOfTickets));
         }
     }
 }

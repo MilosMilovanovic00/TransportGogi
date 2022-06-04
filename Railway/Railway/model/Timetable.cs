@@ -8,6 +8,7 @@ namespace Railway.Model
 {
     public class Timetable
     {
+        public string Name { get; set; }
         public Train Train { get; set; }
         public Trainline Trainline { get; set; }
         public List<string> Days { get; set; }
@@ -21,8 +22,26 @@ namespace Railway.Model
             TimeFromFirstStation = new DateTime();
             TimeFromLastStation = new DateTime();
         }
-        public Timetable(Train train, List<string> days, DateTime firstTime, DateTime lastTime, List<Ticket> boughtTickets)
+        public Timetable DeepCopy(Trainline trainline)
         {
+            Timetable newTimetable = new Timetable();
+            newTimetable.Name = Name;
+            newTimetable.Train = Train;
+            newTimetable.Trainline = trainline;
+            newTimetable.Days = Days;
+            newTimetable.TimeFromFirstStation = TimeFromFirstStation;
+            newTimetable.TimeFromLastStation = TimeFromLastStation;
+            foreach (Ticket ticket in BoughtTickets)
+                newTimetable.AddBoughtTicket(ticket.DeepCopy());
+            return newTimetable;
+        }
+        private void AddBoughtTicket(Ticket ticket)
+        {
+            BoughtTickets.Add(ticket);
+        }
+        public Timetable(string name, Train train, List<string> days, DateTime firstTime, DateTime lastTime, List<Ticket> boughtTickets)
+        {
+            Name = name;
             Train = train;
             Trainline = null;
             Days = days;

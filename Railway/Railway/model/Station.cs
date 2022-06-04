@@ -16,6 +16,22 @@ namespace Railway.Model
 
         public Station()  { }
 
+        public Station DeepCopy()
+        {
+            Station newStation = new Station();
+            newStation.Name = Name;
+            newStation.Longitude = Longitude;
+            newStation.Latitude = Latitude;
+            if (PathToNextStation != null)
+                newStation.PathToNextStation = PathToNextStation; //.DeepCopy()
+            else
+                newStation.PathToNextStation = null;
+            if (PathToPreviousStation != null)
+                newStation.PathToPreviousStation = PathToPreviousStation; //.DeepCopy()
+            else
+                newStation.PathToPreviousStation = null;
+            return newStation;
+        }
         public Station(string name, double longitude, double latitude, Path pathToNextStation, Path pathToPreviousStation)
         {
             Name = name;

@@ -21,8 +21,7 @@ namespace Railway
     /// Interaction logic for BuyTicket.xaml
     /// </summary>
     public partial class BuyTicket : Page
-    {
-        public List<QuickReservation> invalidReservations { get; set; }
+    {      
         public Frame MainFrame { get; set; }
         public List<QuickReservation> QuickReservations { get; set; }
         public DateTime Date { get; set; }
@@ -37,15 +36,20 @@ namespace Railway
             DisplayQuickReservations();
             Date = date;
             NumberOfPassengers = numberOfPassengers;
-            invalidReservations = new List<QuickReservation>();
         }
 
         private void DisplayQuickReservations()
         {
             int row = 1;
+            bool addedQuickReservation = false;
             foreach (QuickReservation reservation in QuickReservations)
-            {             
-                DisplayBuyTicket.Height += 200;
+            {
+                if (!reservation.Timetable.HaveTicketsAvailable(reservation.FirstStation, reservation.LastStation, Date, NumberOfPassengers))
+                {
+                    continue;
+                }
+                addedQuickReservation = true;              
+                DisplayBuyTicket.Height += 210;
                 var margine = new RowDefinition();
                 margine.Height = new GridLength(10, GridUnitType.Pixel);
                 DisplayBuyTicket.RowDefinitions.Add(margine);
@@ -66,6 +70,11 @@ namespace Railway
                 Grid.SetColumn(grid, 1);
                 DisplayBuyTicket.Children.Add(grid);
                 row += 2;
+            }
+            if (!addedQuickReservation)
+            {
+                MessageBox.Show("Unfortunately, all tickets for this route are bought, please search again for other routes.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MainFrame.Content = SearchRoute;
             }
         }
         private Border MakeBorder()
@@ -105,7 +114,7 @@ namespace Railway
             departure.VerticalAlignment = VerticalAlignment.Top;
             departure.HorizontalAlignment = HorizontalAlignment.Center;
             Grid.SetColumn(departure, 1);
-            Grid.SetRow(departure, 1);
+            Grid.SetRow(departure, 2);
             Grid.SetRowSpan(departure, 3);
             grid.Children.Add(departure);
 
@@ -116,7 +125,7 @@ namespace Railway
             duration.HorizontalAlignment = HorizontalAlignment.Center;
             duration.VerticalContentAlignment = VerticalAlignment.Bottom;
             Grid.SetColumn(duration, 2);
-            Grid.SetRow(duration, 1);
+            Grid.SetRow(duration, 2);
             grid.Children.Add(duration);
 
             Image arrowImg = new Image();
@@ -125,9 +134,9 @@ namespace Railway
             arrowImg.HorizontalAlignment = HorizontalAlignment.Center;
             arrowImg.VerticalAlignment = VerticalAlignment.Top;
             arrowImg.Width = 25;
-            arrowImg.Margin = new Thickness(0, 6, 0, 0);
+            
             Grid.SetColumn(arrowImg, 2);
-            Grid.SetRow(arrowImg, 2);
+            Grid.SetRow(arrowImg, 3);
             grid.Children.Add(arrowImg);
 
             Label arrival = new Label();
@@ -136,7 +145,7 @@ namespace Railway
             arrival.VerticalAlignment = VerticalAlignment.Top;
             arrival.HorizontalAlignment = HorizontalAlignment.Center;
             Grid.SetColumn(arrival, 3);
-            Grid.SetRow(arrival, 1);
+            Grid.SetRow(arrival, 2);
             Grid.SetRowSpan(arrival, 3);
             grid.Children.Add(arrival);
 
@@ -146,6 +155,7 @@ namespace Railway
             stations.IsEditable = true;
             stations.IsReadOnly = true;
             stations.Text = "Stanice";
+            stations.FontSize = 15;
             Grid.SetColumn(stations, 2);
             Grid.SetRow(stations, 5);         
             grid.Children.Add(stations);
@@ -153,7 +163,7 @@ namespace Railway
             Label price = new Label();
             price.Content = reservation.Price + " rsd";
             price.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#ee964b"));     
-            price.FontSize = 22;
+            price.FontSize = 21;
             price.VerticalAlignment = VerticalAlignment.Top;
             price.HorizontalAlignment = HorizontalAlignment.Left;
             Grid.SetColumn(price, 4);
@@ -177,30 +187,30 @@ namespace Railway
         private void BuyTicket_Click(object sender, RoutedEventArgs e)
         {
             QuickReservation reservation = (QuickReservation)((Button)sender).Tag;
-            if (!reservation.Timetable.HaveTicketsAvailable(reservation.FirstStation, reservation.LastStation, Date, NumberOfPassengers))
-            {
-                MessageBox.Show("Unfortunately, all tickets for this route are bought, please search again for other routes.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                if (!invalidReservations.Contains(reservation)) {
-                    invalidReservations.Add(reservation);
-                }
-                if (invalidReservations.Count == QuickReservations.Count)
-                    MainFrame.Content = SearchRoute;
-                return;
-            }
             Station firstStation = reservation.Trainline.getStation(reservation.FirstStation);
             Station lastStation = reservation.Trainline.getStation(reservation.LastStation);
             Ticket ticket = new Ticket(firstStation, lastStation, Date, NumberOfPassengers);
             string parameters = "Departure: " + reservation.DepartureTime.ToString("dd.MM.yyyy. hh:mm'h'") + ", " + reservation.FirstStation  + "\nArrival: " + reservation.ArrivalTime.ToString("dd.MM.yyyy. hh:mm'h'") + ", " + reservation.LastStation + "\nPrice: " + reservation.Price  + " rsd" + "\nDuration: " + reservation.Duration + " minutes";
             int response = (int)MessageBox.Show("Are you sure you want to buy ticket with these parameters?\n" + parameters, "Question", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (response == 6)
-            {              
-                reservation.Timetable.BoughtTickets.Add(ticket);
-                MessageBox.Show("Ticket successfully bought!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);            
+            {
+                //BEZ UNDO I REDO: 
+                //NE POZIVA SE FUNKCIJA DATA.BUYTICKET VEC
+                // reservation.Timetable.BoughtTickets.Add(ticket);
+                QuickReservations = Data.BuyTicket(reservation, ticket, firstStation.Name, lastStation.Name, Date, NumberOfPassengers);
+                MessageBox.Show("Ticket successfully bought!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                RefreshPage();
             }
             else
             {
                 MessageBox.Show("Buying ticket cancelled successfully.", "Cancellation successful", MessageBoxButton.OK, MessageBoxImage.Information);
             }
+        }
+        public void RefreshPage()
+        {
+            DisplayBuyTicket.Children.RemoveRange(0, DisplayBuyTicket.Children.Count);
+            DisplayBuyTicket.Height = 0;
+            this.DisplayQuickReservations();
         }
         private void CreateRowsAndCols(Grid grid)
         {
@@ -214,8 +224,8 @@ namespace Railway
             addRowStars(grid, 14); //vreme 1
             addRowStars(grid, 22); //vreme 2
             addRowStars(grid, 12); //vreme 3
-            addRowStars(grid, 16); //razmak 4
-            addRowStars(grid, 20); //stanice izmedju i kupi dugme 5
+            addRowStars(grid, 20); //razmak 4
+            addRowStars(grid, 16); //stanice izmedju i kupi dugme 5
             addRowStars(grid, 6); //margina 6
         }
         private void addRowStars(Grid grid, double percentage)

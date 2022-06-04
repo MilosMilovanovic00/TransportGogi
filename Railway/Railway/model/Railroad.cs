@@ -18,5 +18,33 @@ namespace Railway.Model
         {
             TrainLines = trainLines;
         }
+        public Railroad DeepCopy()
+        {        
+            Railroad railroad = new Railroad();
+            foreach (Trainline trainline in TrainLines) {
+                railroad.AddTrainline(trainline.DeepCopy());
+            }
+            return railroad;
+            
+        }
+        public void AddTrainline(Trainline trainline)
+        {
+            TrainLines.Add(trainline);
+        }
+        public void AddBoughtTicket(Trainline trainline, Timetable timetable, Ticket ticket)
+        {
+            Trainline requiredTrainline = FindTrainline(trainline.Name);
+            Timetable requiredTimetable = requiredTrainline.FindTimetable(timetable.Name);
+            requiredTimetable.BoughtTickets.Add(ticket);
+        }
+        public Trainline FindTrainline(String name)
+        {
+            foreach(Trainline trainline in TrainLines)
+            {
+                if (trainline.Name.Equals(name))
+                    return trainline;
+            }
+            return null;
+        }
     }
 }
