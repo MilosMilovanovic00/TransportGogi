@@ -31,11 +31,14 @@ namespace Railway
         {
             InitializeComponent();
             Data.FillData();
-            User logedUser = Data.GetLogedUser("pera", "pera");
-            SearchRoute = new SearchRoute(this, logedUser);
-            TicketHistory = new TicketHistory(logedUser);         
+
+            MainFrame.Content = new Login(MainFrame, this);
+
+            //User logedUser = Data.GetLogedUser("pera", "pera");
+            //SearchRoute = new SearchRoute(this, logedUser);
+            //TicketHistory = new TicketHistory(logedUser);         
             Frame = MainFrame;
-            ShowSearchRoute();
+            //ShowSearchRoute();
             //MainFrame.Content = new AddTrainRoute();
             /*List<Model.QuickReservation> list = new List<Model.QuickReservation>();
             List<string> allStations = new List<string>();

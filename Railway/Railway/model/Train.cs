@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Railway.model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,20 +10,25 @@ namespace Railway.Model
     public class Train
     {
         public string Name { get; set; }
-        public int NumberOfSeats { get; set; }
+        public Seats seats{ get; set; }
 
         public Train()
         { }
 
-        public Train(string name, int numOfSeats)
+        public Train(string name, Seats seats)
         {
             Name = name;
-            NumberOfSeats = numOfSeats;
+            this.seats = seats;
         }
 
         public override string ToString()
         {
-            return "Name: " + Name + "\nNumber of seats: " + NumberOfSeats;
+            return "Name: " + Name + "\nNumber of seats: " + seats.getNumberOfSeats();
+        }
+
+        public Train DeepCopy(Train oldTrain)
+        {
+            return new Train(oldTrain.Name, oldTrain.seats.DeepCopy());
         }
     }
 }

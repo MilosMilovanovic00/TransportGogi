@@ -72,7 +72,7 @@ namespace Railway.Model
                     takenSeats += ticket.NumberOfPassengers;
                 }
             }
-            return (Train.NumberOfSeats - takenSeats) >= numOfTickets;
+            return (Train.seats.getNumberOfSeats() - takenSeats) >= numOfTickets;
         }
 
         private bool TicketInRange(Ticket ticket, string startStation, string endStation)
