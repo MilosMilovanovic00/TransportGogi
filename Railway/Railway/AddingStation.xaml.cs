@@ -37,9 +37,17 @@ namespace Railway
 
         private void Ellipse_MouseMove(object sender, MouseEventArgs e)
         {
-            if (e.LeftButton == MouseButtonState.Pressed) {
-                mapa.Children.Remove(lastPushpin);
-                DragDrop.DoDragDrop(LocationPoint, LocationPoint, DragDropEffects.Move);
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                string stationName = station_name.Text;
+                if (stationName == "" || stationName == null)
+                {
+                    MessageBox.Show("You need to type station name in order to place icon on map.", "Notification", MessageBoxButton.OK);
+                }
+                else
+                {
+                    DragDrop.DoDragDrop(LocationPoint, LocationPoint, DragDropEffects.Move);
+                }
             }
         }
 
@@ -58,38 +66,51 @@ namespace Railway
 
         private void mapa_Drop(object sender, DragEventArgs e)
         {
-            MessageBoxResult messageBoxResult = MessageBox.Show("Are you sure you want to place station here?", "Creating new station confirmation", System.Windows.MessageBoxButton.YesNo);
+            MessageBoxResult messageBoxResult = MessageBox.Show("Are you sure you want to place the station here?", "Creating new station confirmation", MessageBoxButton.YesNo);
             if (messageBoxResult == MessageBoxResult.Yes)
             {
-                e.Handled = true;
-                Point mousePosition = e.GetPosition(this.mapa);
-                Location pinLocation = mapa.ViewportPointToLocation(mousePosition);
-                MessageBox.Show("Position you want to add is on latitude:" + pinLocation.Latitude + " and longitude:" + pinLocation.Longitude);
-                Pushpin pin = new Pushpin();
-                pin.Location = pinLocation;
-                lastPushpin = pin;
-                mapa.Children.Add(lastPushpin);
+                if (mapa.Children.Contains(lastPushpin))
+                {
+                    messageBoxResult = MessageBox.Show("Last mark for the station on the map will be delete.\nAre you sure you want to add new mark?", "Changing mark for new location confirmation", MessageBoxButton.YesNo);
+                    if (messageBoxResult == MessageBoxResult.Yes)
+                    {
+                        mapa.Children.Remove(lastPushpin);
+                        e.Handled = true;
+                        Point mousePosition = e.GetPosition(this.mapa);
+                        Location pinLocation = mapa.ViewportPointToLocation(mousePosition);
+                        MessageBox.Show("Latitude: " + pinLocation.Latitude + "\nLongitude: " + pinLocation.Longitude, "Geographic position of the place you want to add station to", MessageBoxButton.OK);
+                        Pushpin pin = new Pushpin();
+                        pin.Background = new SolidColorBrush(Colors.Blue);
+                        pin.Location = pinLocation;
+                        lastPushpin = pin;
+                        mapa.Children.Add(lastPushpin);
+                    }
+                }
+                else if (lastPushpin == null) {
+                    e.Handled = true;
+                    Point mousePosition = e.GetPosition(this.mapa);
+                    Location pinLocation = mapa.ViewportPointToLocation(mousePosition);
+                    MessageBox.Show("Latitude: " + pinLocation.Latitude + "\nLongitude: " + pinLocation.Longitude, "Geographic position of the place you wnat to add station to", MessageBoxButton.OK);
+                    Pushpin pin = new Pushpin();
+                    pin.Background = new SolidColorBrush(Colors.Blue);
+                    pin.Location = pinLocation;
+                    lastPushpin = pin;
+                    mapa.Children.Add(lastPushpin);
+                }
             }
         }
 
         private void addStation_Click(object sender, RoutedEventArgs e)
         {
-            string stationName = station_name.Text;
-            if (stationName == "" || stationName == null)
+            MessageBoxResult messageBoxResult = MessageBox.Show("Are you sure?", "Creating new station confirmation", MessageBoxButton.YesNo);
+            if (messageBoxResult == MessageBoxResult.Yes)
             {
-                MessageBox.Show("You need to type station name.");
-            }
-            else
-            {
-                MessageBoxResult messageBoxResult = MessageBox.Show("Are you sure?", "Creating new station confirmation", System.Windows.MessageBoxButton.YesNo);
-                if (messageBoxResult == MessageBoxResult.Yes)
-                {
-                    Station station = new Station(stationName, lastPushpin.Location.Longitude, lastPushpin.Location.Latitude);
-                    Stations.Add(station);
-                    Data.getStations().Add(station);
-                    lastPushpin = null;
-                    station_name.Text = "";
-                }
+                
+                Station station = new Station(station_name.Text, lastPushpin.Location.Longitude, lastPushpin.Location.Latitude);
+                Stations.Add(station);
+                Data.getStations().Add(station);
+                lastPushpin = null;
+                station_name.Text = "";
             }
         }
     }

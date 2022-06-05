@@ -287,7 +287,7 @@ namespace Railway
             Trainline trainline7 = new Trainline(sabac1, knjazevac1, timetables7);
             timetable7.Trainline = trainline7;
 
-            Trainline = trainline5;
+            Trainline = trainline4;
             List<Trainline> trainlines = new List<Trainline>() { trainline1, trainline2, trainline3, trainline4, trainline5, trainline6, trainline7 };
 
             Railroad railway = new Railroad(trainlines);
