@@ -29,12 +29,12 @@ namespace Railway
 
         private void Routes_Click(object sender, RoutedEventArgs e)
         {
-            ManagerContentFrame.Content = new ReadTrainRoute(ManagerContentFrame);
+          //  ManagerContentFrame.Content = new ReadTrainRoute(ManagerContentFrame);
         }
 
         private void Trains_Click(object sender, RoutedEventArgs e)
         {
-            ManagerContentFrame.Content = new ReadTrain(ManagerContentFrame);
+         //   ManagerContentFrame.Content = new ReadTrain(ManagerContentFrame);
         }
 
         private void Stations_Click(object sender, RoutedEventArgs e)
@@ -44,7 +44,7 @@ namespace Railway
 
         private void Schedules_Click(object sender, RoutedEventArgs e)
         {
-            ManagerContentFrame.Content = new ReadTimetable(ManagerContentFrame);
+           // ManagerContentFrame.Content = new ReadTimetable(ManagerContentFrame);
         }
     }
 }

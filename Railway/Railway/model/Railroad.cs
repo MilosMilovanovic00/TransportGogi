@@ -28,6 +28,7 @@ namespace Railway.Model
             foreach (Trainline trainline in TrainLines) {
                 railroad.AddTrainline(trainline.DeepCopy());
             }
+            railroad.Users = Users;
             return railroad;
             
         }

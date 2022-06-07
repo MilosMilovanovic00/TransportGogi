@@ -478,7 +478,7 @@ namespace Railway
             Railroad newRailway = oldRailway.DeepCopy();
 
             int index = -1;
-            List<Trainline> trainlines = GetTrainLines();
+            List<Trainline> trainlines = newRailway.TrainLines;
 
             for (int i = 0; i < trainlines.Count; i++)
             {
@@ -487,15 +487,13 @@ namespace Railway
 
                 if (t.Name == name)
                 {
-
                     index = i;
                     break;
                 }
             }
 
             trainlines.RemoveAt(index);
-
-            newRailway.TrainLines = trainlines;
+         
 
             Data.AddRailway(newRailway);
             Data.SetRailwayIndex(Data.RailwayIndex + 1);
@@ -636,6 +634,7 @@ namespace Railway
             Data.SetRailwayIndex(Data.RailwayIndex + 1);
             return GetQuickReservations(startStation, endStation, travelDate, numOfTickets);
         }    
+ 
         public static List<Ticket> GetBoughtTickets(User user)
         {
             List<Ticket> tickets = new List<Ticket>();

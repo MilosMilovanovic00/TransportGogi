@@ -21,29 +21,40 @@ namespace Railway
     /// </summary>
     public partial class ReadTrainRoute : Page
     {
-        private Frame managerContentFrame;
-        public ReadTrainRoute(Frame managerContentFrame)
+        private Railway.MainWindow window { get; set; }
+        public ReadTrainRoute(Railway.MainWindow mainWindow)
         {
+            this.window = mainWindow;
+            this.window.CurrentPage = "ReadTrainRoute";
             InitializeComponent();
-            this.managerContentFrame = managerContentFrame;
+            window.AddUndoRedoButtons(readTrainRoutePanel);
+            InitializeComponent();
 
+            AddContent();
 
+        }
+
+        public void AddContent()
+        {
             int trainlineIndex = 1;
 
             foreach (Trainline trainline in Data.GetTrainLines())
-            {              
-                OneTrainRoute oneTrainRoute = new OneTrainRoute(trainline, managerContentFrame);
-             
+            {
+                OneTrainRoute oneTrainRoute = new OneTrainRoute(trainline, window);
+
                 addRowPixels(ReadTrainRouteGrid, oneTrainRoute.getHeight());
                 Grid.SetRow(oneTrainRoute, trainlineIndex);
 
                 ReadTrainRouteGrid.Children.Add(oneTrainRoute);
                 trainlineIndex++;
             }
-
         }
-
-
+        public void RefreshPage()
+        {
+            window.TryDisableUndoRedo();
+            ReadTrainRouteGrid.Children.RemoveRange(0, ReadTrainRouteGrid.Children.Count);
+            AddContent();
+        }
         private void addRowPixels(Grid grid, double height)
         {
             var rd = new RowDefinition();
@@ -54,7 +65,7 @@ namespace Railway
 
         private void AddNewTrainRoute_Click(object sender, RoutedEventArgs e)
         {
-            managerContentFrame.Content = new AddTrainRoute(managerContentFrame);
+            window.MainFrame.Content = new AddTrainRoute(window);
         }
     }
 }

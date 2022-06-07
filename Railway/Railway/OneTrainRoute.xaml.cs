@@ -23,16 +23,16 @@ namespace Railway
     public partial class OneTrainRoute : Grid
     {
         int stationNextRow;
-        Frame managerContentFrame;
+        Railway.MainWindow Window;
         Trainline trainline;
 
-        public OneTrainRoute(Trainline trainline, Frame managerContentFrame)
+        public OneTrainRoute(Trainline trainline, Railway.MainWindow window)
         {
             InitializeComponent();
             addFirstStationLabel(trainline);
             addLastStationLabel(trainline);
             addTrainLineName(trainline);
-            this.managerContentFrame = managerContentFrame;
+            this.Window = window;
             this.trainline = trainline;
 
             Label stationLabel = new Label();
@@ -139,7 +139,7 @@ namespace Railway
 
         private void EditButton_Click(object sender, RoutedEventArgs e)
         {
-            managerContentFrame.Content = new AddTrainRoute(managerContentFrame, trainline);
+            Window.MainFrame.Content = new AddTrainRoute(Window, trainline);
         }
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
@@ -149,7 +149,8 @@ namespace Railway
             {
                 Data.deleteTrainRoute(trainline.Name);
                 int ok = (int)MessageBox.Show($"Train route {trainline.Name} successfully deleted!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                managerContentFrame.Content = new ReadTrainRoute(managerContentFrame);
+                Window.ShowReadTrainRoute();
+                //Window.MainFrame.Content = new ReadTrainRoute(Window);
             }
             else
             {

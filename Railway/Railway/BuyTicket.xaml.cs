@@ -192,14 +192,16 @@ namespace Railway
             Station lastStation = reservation.Trainline.getStation(reservation.LastStation);
             DateTime ticketDate = new DateTime(Date.Year, Date.Month, Date.Day, reservation.DepartureTime.Hour, reservation.DepartureTime.Minute, 0);
             Ticket ticket = new Ticket(LogedUser, firstStation, lastStation, ticketDate, NumberOfPassengers, reservation.Price, reservation.Duration, reservation.Timetable.Train);
-            string parameters = "Departure: " + reservation.DepartureTime.ToString("dd.MM.yyyy. hh:mm'h'") + ", " + reservation.FirstStation  + "\nArrival: " + reservation.ArrivalTime.ToString("dd.MM.yyyy. hh:mm'h'") + ", " + reservation.LastStation + "\nPrice: " + reservation.Price  + " rsd" + "\nDuration: " + reservation.Duration + " minutes";
+            string parameters = "Departure: " + reservation.DepartureTime.ToString("dd.MM.yyyy. HH:mm'h'") + ", " + reservation.FirstStation  + "\nArrival: " + reservation.ArrivalTime.ToString("dd.MM.yyyy. HH:mm'h'") + ", " + reservation.LastStation + "\nPrice: " + reservation.Price  + " rsd" + "\nDuration: " + reservation.Duration + " minutes";
             int response = (int)MessageBox.Show("Are you sure you want to buy ticket with these parameters?\n" + parameters, "Question", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (response == 6)
             {
-                //BEZ UNDO I REDO: 
-                //NE POZIVA SE FUNKCIJA DATA.BUYTICKET VEC
-                // reservation.Timetable.BoughtTickets.Add(ticket);
-                QuickReservations = Data.BuyTicket(reservation, ticket, firstStation.Name, lastStation.Name, Date, NumberOfPassengers);
+                //BEZ UNDO I REDO:
+                reservation.Timetable.BoughtTickets.Add(ticket);
+              
+                // SA UNDO I REDO
+                //QuickReservations = Data.BuyTicket(reservation, ticket, firstStation.Name, lastStation.Name, Date, NumberOfPassengers);
+                
                 MessageBox.Show("Ticket successfully bought!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 RefreshPage();
             }
@@ -210,7 +212,7 @@ namespace Railway
         }
         public void RefreshPage()
         {
-            MainWindow.TryDisableUndoRedo();
+            //MainWindow.TryDisableUndoRedo();
             DisplayBuyTicket.Children.RemoveRange(0, DisplayBuyTicket.Children.Count);
             DisplayBuyTicket.Height = 0;
             this.DisplayQuickReservations();

@@ -26,14 +26,13 @@ namespace Railway
         List<Dictionary<String, object>> infoBetweenStations;
         List<String> addedStations;
 
-        Frame managerContentFrame;
+        Railway.MainWindow Window;
         ReadTrainRoute readTrainRoute;
-        public AddTrainRoute(Frame managerContentFrame)
+        public AddTrainRoute(Railway.MainWindow window)
         {
+            this.Window = window;
             InitializeComponent();
-
-            this.managerContentFrame = managerContentFrame;
-
+            
 
             infoBetweenStations = new List<Dictionary<string, object>>();
             addedStations = new List<String>();
@@ -49,13 +48,13 @@ namespace Railway
 
         }
 
-        public AddTrainRoute(Frame managerContentFrame, Trainline trainline)
+        public AddTrainRoute(Railway.MainWindow window, Trainline trainline)
         {
+            this.Window = window;
             InitializeComponent();
+           
 
             this.trainline = trainline;
-
-            this.managerContentFrame = managerContentFrame;
 
 
             infoBetweenStations = new List<Dictionary<string, object>>();
@@ -138,7 +137,6 @@ namespace Railway
 
                 lastStationLabelRow += 2;
                 
-
             }
             else
             {
@@ -379,7 +377,7 @@ namespace Railway
 
                         Data.AddTrainLine(infoBetweenStations);
                         int ok = (int)MessageBox.Show("Train route successfully added!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                        managerContentFrame.Content = new ReadTrainRoute(managerContentFrame);
+                        Window.MainFrame.Content = new ReadTrainRoute(Window);
                     }
                     else
                     {
@@ -395,7 +393,7 @@ namespace Railway
 
                         Data.editTrainLine(infoBetweenStations, trainline.Name);
                         int ok = (int)MessageBox.Show("Train route successfully edited!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                        managerContentFrame.Content = new ReadTrainRoute(managerContentFrame);
+                        Window.MainFrame.Content = new ReadTrainRoute(Window);
                     }
                     else
                     {
@@ -421,7 +419,7 @@ namespace Railway
                 {
 
                     MessageBox.Show("Train route addition cancelled successfully.", "Cancellation successful", MessageBoxButton.OK, MessageBoxImage.Information);
-                    managerContentFrame.Content = new ReadTrainRoute(managerContentFrame);
+                    Window.MainFrame.Content = new ReadTrainRoute(Window);
                 }
                
             }
@@ -433,7 +431,7 @@ namespace Railway
                 {
 
                     MessageBox.Show("Train route editing cancelled successfully.", "Cancellation successful", MessageBoxButton.OK, MessageBoxImage.Information);
-                    managerContentFrame.Content = new ReadTrainRoute(managerContentFrame);
+                    Window.MainFrame.Content = new ReadTrainRoute(Window);
                 }
                
             }

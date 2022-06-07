@@ -26,6 +26,7 @@ namespace Railway
         public TicketHistory TicketHistory { get; set; }
         public Login Login { get; set; }
         public AdminPage AdminPage {get; set;}
+        public ReadTrainRoute ReadTrainRoute { get; set; }
         public Frame Frame { get; set; }
         public Button Undo { get; set; }
         public Button Redo { get; set; }
@@ -37,9 +38,7 @@ namespace Railway
             Data.FillData();
             Login = new Login(MainFrame, this);
             ShowLogin();                 
-            Frame = MainFrame;         
-            //MainFrame.Content = new AddTrainRoute();
-           
+            Frame = MainFrame;                         
         }
         public void InitializeUserComponents(User logedUser)
         {
@@ -54,6 +53,7 @@ namespace Railway
             AddNavbar();
             CreateAdminNavbar();
             AdminPage = new AdminPage();
+            ReadTrainRoute = new ReadTrainRoute(this);
         }
         public void ShowAdminHomePage()
         {         
@@ -62,9 +62,12 @@ namespace Railway
         }
         public void CreateAdminNavbar()
         {
+            navButtons.Children.RemoveRange(0, navButtons.Children.Count);
+
             Button routes = new Button();
             routes.BorderThickness = new Thickness(0);
             routes.Height = 35;
+            routes.HorizontalAlignment = HorizontalAlignment.Stretch;
             routes.FontSize = 15;
             routes.Content = "Routes";
             routes.Background = new SolidColorBrush(Color.FromRgb(0, 176, 255));
@@ -74,6 +77,7 @@ namespace Railway
             Button trains = new Button();
             trains.BorderThickness = new Thickness(0);
             trains.Height = 35;
+            trains.HorizontalAlignment = HorizontalAlignment.Stretch;
             trains.FontSize = 15;
             trains.Content = "Trains";
             trains.Background = new SolidColorBrush(Color.FromRgb(0, 176, 255));
@@ -83,6 +87,7 @@ namespace Railway
             Button stations = new Button();
             stations.BorderThickness = new Thickness(0);
             stations.Height = 35;
+            stations.HorizontalAlignment = HorizontalAlignment.Stretch;
             stations.FontSize = 15;
             stations.Content = "Stations";
             stations.Background = new SolidColorBrush(Color.FromRgb(0, 176, 255));
@@ -92,6 +97,7 @@ namespace Railway
             Button schedules = new Button();
             schedules.BorderThickness = new Thickness(0);
             schedules.Height = 35;
+            schedules.HorizontalAlignment = HorizontalAlignment.Stretch;
             schedules.FontSize = 15;
             schedules.Content = "Schedules";
             schedules.Background = new SolidColorBrush(Color.FromRgb(0, 176, 255));
@@ -106,11 +112,14 @@ namespace Railway
         }
         public void CreateUserNavbar()
         {
+            navButtons.Children.RemoveRange(0, navButtons.Children.Count);
+
             Button searchTicket = new Button();
             searchTicket.BorderThickness = new Thickness(0);
             searchTicket.Height = 35;
             searchTicket.FontSize = 15;
             searchTicket.Content = "Search ticket";
+            searchTicket.HorizontalAlignment = HorizontalAlignment.Stretch;
             searchTicket.Background = new SolidColorBrush(Color.FromRgb(0, 176, 255));
             searchTicket.Foreground = Brushes.FloralWhite;
             searchTicket.Click += Button_Click_ShowSearchRoute;
@@ -118,6 +127,7 @@ namespace Railway
             Button ticketHistory = new Button();
             ticketHistory.BorderThickness = new Thickness(0);
             ticketHistory.Height = 35;
+            ticketHistory.HorizontalAlignment = HorizontalAlignment.Stretch;
             ticketHistory.FontSize = 15;
             ticketHistory.Content = "Ticket history";
             ticketHistory.Background = new SolidColorBrush(Color.FromRgb(0, 176, 255));
@@ -129,6 +139,7 @@ namespace Railway
         }
         public void ShowLogin()
         {
+            Login.emailTextBox.Text = "";
             MainFrame.Content = Login;
             CurrentPage = "Login";
             DeleteNavbar();
@@ -148,7 +159,7 @@ namespace Railway
         {        
             MainFrame.Content = SearchRoute;
             CurrentPage = "SearchRoute";
-            DeleteUndoRedoButtons();
+           // DeleteUndoRedoButtons();
         }
         public void TryDisableUndoRedo()
         {
@@ -161,8 +172,9 @@ namespace Railway
             else
                 Redo.IsEnabled = true;
         }
-        public void AddUndoRedoButtons()
+        public void AddUndoRedoButtons(StackPanel panel)
         {
+           
             Undo = new Button();
             Undo.BorderThickness = new Thickness(0);
             Undo.Width = 100;
@@ -181,16 +193,24 @@ namespace Railway
             Redo.Foreground = Brushes.FloralWhite;
             Redo.Click += Button_Click_Redo;
 
-            /*undoRedo.Children.Add(Undo);
-            undoRedo.Children.Add(Redo);*/
+
+            panel.Children.Add(Undo);
+            panel.Children.Add(Redo);
+
+            TryDisableUndoRedo();
         }
 
         public void ShowBuyTicket(BuyTicket buyTicket)
         {
             CurrentPage = "BuyTickets";
-            AddUndoRedoButtons();
-            TryDisableUndoRedo();
             MainFrame.Content = buyTicket;
+        }
+
+        public void ShowReadTrainRoute()
+        {
+            CurrentPage = "ReadTrainRoute";
+            ReadTrainRoute.RefreshPage();
+            MainFrame.Content = ReadTrainRoute;
         }
         public void DeleteUndoRedoButtons()
         {
@@ -199,19 +219,19 @@ namespace Railway
 
         private void Button_Click_ShowSearchRoute(object sender, RoutedEventArgs e)
         {
-            DeleteUndoRedoButtons();
+            //DeleteUndoRedoButtons();
             MainFrame.Content = SearchRoute;
         }
         private void Button_Click_ShowTicketHistory(object sender, RoutedEventArgs e)
         {         
-            DeleteUndoRedoButtons();
+            //DeleteUndoRedoButtons();
             TicketHistory.RefreshPage();
             MainFrame.Content = TicketHistory;
         }
 
         private void Routes_Click(object sender, RoutedEventArgs e)
         {
-            MainFrame.Content = new ReadTrainRoute(MainFrame);
+            ShowReadTrainRoute();
         }
 
         private void Trains_Click(object sender, RoutedEventArgs e)
@@ -232,16 +252,33 @@ namespace Railway
         private void Button_Click_Undo(object sender, RoutedEventArgs e)
         {
             Data.Undo();
-            SearchRoute.BuyTicket.QuickReservations = SearchRoute.GetQuickReservations();
-            SearchRoute.BuyTicket.RefreshPage();          
+            if (CurrentPage == "BuyTickets")
+            {
+                SearchRoute.BuyTicket.QuickReservations = SearchRoute.GetQuickReservations();
+                SearchRoute.BuyTicket.RefreshPage();          
+            }
+            if (CurrentPage == "ReadTrainRoute")
+            {
+                ReadTrainRoute.RefreshPage();
+            }
         }
         private void Button_Click_Redo(object sender, RoutedEventArgs e)
         {
             Data.Redo();
-            SearchRoute.BuyTicket.QuickReservations = SearchRoute.GetQuickReservations();
-            SearchRoute.BuyTicket.RefreshPage();
+            if (CurrentPage == "BuyTickets")
+            {
+                SearchRoute.BuyTicket.QuickReservations = SearchRoute.GetQuickReservations();
+                SearchRoute.BuyTicket.RefreshPage();
+            }
+            if (CurrentPage == "ReadTrainRoute")
+            {
+                ReadTrainRoute.RefreshPage();
+            }
         }
 
-        
+        private void Button_Click_Logout(object sender, RoutedEventArgs e)
+        {
+            ShowLogin();
+        }
     }
 }

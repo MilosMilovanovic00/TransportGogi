@@ -32,7 +32,10 @@ namespace Railway.Model
             newTimetable.TimeFromFirstStation = TimeFromFirstStation;
             newTimetable.TimeFromLastStation = TimeFromLastStation;
             foreach (Ticket ticket in BoughtTickets)
+            {
                 newTimetable.AddBoughtTicket(ticket.DeepCopy());
+            }
+
             return newTimetable;
         }
         private void AddBoughtTicket(Ticket ticket)
