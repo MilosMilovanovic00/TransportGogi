@@ -111,7 +111,7 @@ namespace Railway
 
             Label departure = new Label();
             departure.Content = reservation.DepartureTime.Hour.ToString("D2") + ":" + reservation.DepartureTime.Minute.ToString("D2") + "h" + "\n" + reservation.DepartureTime.Day.ToString("d2") + ". " + reservation.DepartureTime.Month.ToString("d2") + ". " + reservation.DepartureTime.Year + "." + "\n" + reservation.FirstStation;        
-            departure.FontSize = 18;
+            departure.FontSize = 15;
             departure.VerticalAlignment = VerticalAlignment.Top;
             departure.HorizontalAlignment = HorizontalAlignment.Center;
             Grid.SetColumn(departure, 1);
@@ -121,7 +121,7 @@ namespace Railway
 
             Label duration = new Label();
             duration.Content = reservation.Duration + " minutes";   
-            duration.FontSize = 15;
+            duration.FontSize = 13;
             duration.VerticalAlignment = VerticalAlignment.Bottom;
             duration.HorizontalAlignment = HorizontalAlignment.Center;
             duration.VerticalContentAlignment = VerticalAlignment.Bottom;
@@ -142,7 +142,7 @@ namespace Railway
 
             Label arrival = new Label();
             arrival.Content = reservation.ArrivalTime.Hour.ToString("D2") + ":" + reservation.ArrivalTime.Minute.ToString("D2") + "h" + "\n" + reservation.ArrivalTime.Day.ToString("d2") + ". " + reservation.ArrivalTime.Month.ToString("d2") + ". " + reservation.ArrivalTime.Year + "." + "\n" + reservation.LastStation;
-            arrival.FontSize = 18;
+            arrival.FontSize = 15;
             arrival.VerticalAlignment = VerticalAlignment.Top;
             arrival.HorizontalAlignment = HorizontalAlignment.Center;
             Grid.SetColumn(arrival, 3);
@@ -164,7 +164,7 @@ namespace Railway
             Label price = new Label();
             price.Content = reservation.Price + " rsd";
             price.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#ee964b"));     
-            price.FontSize = 21;
+            price.FontSize = 18;
             price.VerticalAlignment = VerticalAlignment.Top;
             price.HorizontalAlignment = HorizontalAlignment.Left;
             Grid.SetColumn(price, 4);

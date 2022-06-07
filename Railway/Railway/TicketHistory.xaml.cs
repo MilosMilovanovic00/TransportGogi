@@ -94,7 +94,7 @@ namespace Railway
 
             Label departure = new Label();
             departure.Content = ticket.Date.Hour.ToString("D2") + ":" + ticket.Date.Minute.ToString("D2") + "h" + "\n" + ticket.Date.Day.ToString("d2") + ". " + ticket.Date.Month.ToString("d2") + ". " + ticket.Date.Year + "." + "\n" + ticket.StartStation.Name;
-            departure.FontSize = 18;
+            departure.FontSize = 15;
             departure.VerticalAlignment = VerticalAlignment.Top;
             departure.HorizontalAlignment = HorizontalAlignment.Center;
             Grid.SetColumn(departure, 1);
@@ -104,7 +104,7 @@ namespace Railway
 
             Label duration = new Label();
             duration.Content = ticket.Duration + " minutes";
-            duration.FontSize = 15;
+            duration.FontSize = 13;
             duration.VerticalAlignment = VerticalAlignment.Bottom;
             duration.HorizontalAlignment = HorizontalAlignment.Center;
             duration.VerticalContentAlignment = VerticalAlignment.Bottom;
@@ -126,7 +126,7 @@ namespace Railway
             Label arrival = new Label();
             DateTime arrivalTime = ticket.Date.AddMinutes(ticket.Duration);
             arrival.Content = arrivalTime.Hour.ToString("D2") + ":" + arrivalTime.Minute.ToString("D2") + "h" + "\n" + arrivalTime.Day.ToString("d2") + ". " + arrivalTime.Month.ToString("d2") + ". " + arrivalTime.Year + "." + "\n" + ticket.EndStation.Name;
-            arrival.FontSize = 18;
+            arrival.FontSize = 15;
             arrival.VerticalAlignment = VerticalAlignment.Top;
             arrival.HorizontalAlignment = HorizontalAlignment.Center;
             Grid.SetColumn(arrival, 3);
@@ -137,7 +137,7 @@ namespace Railway
             Label passengersLabel = new Label();
             passengersLabel.Content = "Number of seats:";
             passengersLabel.HorizontalAlignment = HorizontalAlignment.Center;
-            passengersLabel.FontSize = 18;
+            passengersLabel.FontSize = 15;
             
             Grid.SetColumn(passengersLabel, 1);
             Grid.SetColumnSpan(passengersLabel, 2);
@@ -147,7 +147,7 @@ namespace Railway
             Label passengers = new Label();
             passengers.Content = ticket.NumberOfPassengers;
             passengers.HorizontalAlignment = HorizontalAlignment.Left;
-            passengers.FontSize = 18;
+            passengers.FontSize = 17;
             Grid.SetColumn(passengers, 3);
             Grid.SetRow(passengers, 5);
             grid.Children.Add(passengers);
@@ -155,7 +155,7 @@ namespace Railway
             Label price = new Label();
             price.Content = ticket.Price + " rsd";
             price.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#ee964b"));
-            price.FontSize = 21;
+            price.FontSize = 18;
             price.VerticalAlignment = VerticalAlignment.Top;
             price.HorizontalAlignment = HorizontalAlignment.Left;
             Grid.SetColumn(price, 4);

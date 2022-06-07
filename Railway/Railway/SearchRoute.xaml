@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:Railway"
       xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2" x:Class="Railway.SearchRoute"
       mc:Ignorable="d" 
-      d:DesignHeight="430" d:DesignWidth="750"
+      d:DesignHeight="430" d:DesignWidth="637"
       Title="SearchRoute">
     <Page.Resources>
         <Style x:Key="FocusVisual">
@@ -543,17 +543,17 @@
             </Grid.RowDefinitions>
 
             <Border BorderBrush="#323031" BorderThickness="1" CornerRadius="8" Background="#323031" Opacity="0.8" Grid.Column="0" Grid.Row="0" Grid.RowSpan="8" Grid.ColumnSpan="10"/>
-            <Label x:Name="travellingFromLabel" Grid.ColumnSpan="3" Content="Travelling from" HorizontalAlignment="Left"  Grid.Column="1" VerticalAlignment="Bottom" Foreground="FloralWhite" FontSize="18" Grid.Row ="1" Width="225" Grid.RowSpan="1"/>
-            <Label x:Name="travellingToLabel" Content="Travelling to" HorizontalAlignment="Left" Grid.Column="5" Grid.ColumnSpan="4" VerticalAlignment="Bottom" Foreground="FloralWhite" FontSize="18" Grid.Row="1" Width="226" Grid.RowSpan="1"/>
-            <ComboBox x:Name="from" HorizontalAlignment="Left" Grid.ColumnSpan="3" VerticalAlignment="Top" Width="225" Grid.Column="1" Grid.Row="2" Style="{DynamicResource ComboBoxColor}"/>
-            <ComboBox x:Name="to" HorizontalAlignment="Left" Grid.ColumnSpan="4"  VerticalAlignment="Top" Width="225" Grid.Column="5" Grid.Row="2" Style="{DynamicResource ComboBoxColor}"/>
-            <Label x:Name="travellingDateLabel" VerticalAlignment="Bottom" Grid.ColumnSpan="3" Content="Travelling Date" HorizontalAlignment="Left"  Grid.Column="1" Grid.Row="3" Foreground="FloralWhite" FontSize="18" Width="225"/>
-            <DatePicker x:Name="travelDate" Background="White" Grid.ColumnSpan="3" HorizontalAlignment="Left"  Grid.Row="4" Grid.Column="1" VerticalAlignment="Top" Width="225" Style="{DynamicResource DatePickerReadonly}" Grid.RowSpan="1"/>
-            <Label x:Name="ticketsNumLabel" Grid.ColumnSpan="4" Content="Number of seats" HorizontalAlignment="Left" Grid.Column="5" Grid.Row="3" VerticalAlignment="Bottom" Foreground="FloralWhite" FontSize="18" Width="225"/>
-            <TextBox x:Name="ticketsNum" IsReadOnly="True" Grid.ColumnSpan="3" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="23"  Grid.Row="4" Grid.Column="5" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="152" Grid.RowSpan="1"/>
+            <Label x:Name="travellingFromLabel" HorizontalAlignment="Stretch" Grid.ColumnSpan="3" Content="Travelling from" Grid.Column="1" VerticalAlignment="Bottom" Foreground="FloralWhite" FontSize="18" Grid.Row ="1" Width="225" Grid.RowSpan="1"/>
+            <Label x:Name="travellingToLabel" HorizontalAlignment="Stretch" Content="Travelling to" Grid.Column="5" Grid.ColumnSpan="4" VerticalAlignment="Bottom" Foreground="FloralWhite" FontSize="18" Grid.Row="1" Width="226" Grid.RowSpan="1"/>
+            <ComboBox x:Name="from" HorizontalAlignment="Stretch" Grid.ColumnSpan="3" VerticalAlignment="Top" Grid.Column="1" Grid.Row="2" Style="{DynamicResource ComboBoxColor}"/>
+            <ComboBox x:Name="to" HorizontalAlignment="Stretch" Grid.ColumnSpan="4"  VerticalAlignment="Top" Grid.Column="5" Grid.Row="2" Style="{DynamicResource ComboBoxColor}"/>
+            <Label x:Name="travellingDateLabel" VerticalAlignment="Bottom" Grid.ColumnSpan="3" Content="Travelling Date" HorizontalAlignment="Stretch"  Grid.Column="1" Grid.Row="3" Foreground="FloralWhite" FontSize="18"/>
+            <DatePicker x:Name="travelDate" HorizontalAlignment="Stretch" Background="White" Grid.ColumnSpan="3" Grid.Row="4" Grid.Column="1" VerticalAlignment="Top" Style="{DynamicResource DatePickerReadonly}" Grid.RowSpan="1"/>
+            <Label x:Name="ticketsNumLabel" Grid.ColumnSpan="4" Content="Number of seats" HorizontalAlignment="Stretch" Grid.Column="5" Grid.Row="3" VerticalAlignment="Bottom" Foreground="FloralWhite" FontSize="18"/>
+            <TextBox x:Name="ticketsNum" IsReadOnly="True" Grid.ColumnSpan="2" HorizontalContentAlignment="Center" HorizontalAlignment="Stretch" Height="23"  Grid.Row="4" Grid.Column="5" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Grid.RowSpan="1"/>
             <Button x:Name="plusTicket" Content="+" HorizontalAlignment="Right" Grid.Row="4" Grid.Column="7" VerticalAlignment="Top" Width="23" Height="23" FontSize="18" Style="{DynamicResource ButtonCircleStyle}" Click="plusTicket_Click"/>
             <Button x:Name="minusTicket" Content="-" HorizontalAlignment="Right" Grid.Row="4" Grid.Column="8" VerticalAlignment="Top" Width="23" Height="23" FontSize="18"  Click="minusTicket_Click" Style="{DynamicResource ButtonCircleStyle}"  />
-            <Button Template="{DynamicResource OrangeButton}" Foreground="FloralWhite" x:Name="searchRoute" Content="Search" Grid.ColumnSpan="3" Grid.Column="3" HorizontalAlignment="Left" Grid.Row="5" VerticalAlignment="Top" Width="116" Height="33" FontSize="18" Click="searchRoute_Click"/>
+            <Button Template="{DynamicResource OrangeButton}" Foreground="FloralWhite" x:Name="searchRoute" Content="Search" Grid.ColumnSpan="3" Grid.Column="3"  Grid.Row="5" VerticalAlignment="Top" HorizontalAlignment="Stretch" Height="33" FontSize="18" Click="searchRoute_Click"/>
         </Grid>
     </Grid>
 </Page>

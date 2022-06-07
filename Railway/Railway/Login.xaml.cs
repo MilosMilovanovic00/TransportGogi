@@ -42,13 +42,13 @@ namespace Railway
             {
                 if (logedUser.Role == "admin")
                 {
-                    ManagerPage mp = new ManagerPage();
-                    mp.Show();
+                    window.InitializeManagerComponents();
+                    window.ShowAdminHomePage();
                 }
                 else if (logedUser.Role == "user")
                 {
-                    
-                    MainFrame.Content = new SearchRoute(window, logedUser);
+                    window.InitializeUserComponents(logedUser);
+                    window.ShowSearchRoute();
                 }
             } else
             {

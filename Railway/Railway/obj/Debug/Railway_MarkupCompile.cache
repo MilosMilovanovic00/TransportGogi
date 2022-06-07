@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-D:\siit\HCI\Proj2\TransportGogi\Railway\Railway\obj\Debug\
+D:\siit\HCI\Projekat2\TransportGogi\Railway\Railway\obj\Debug\
 Railway
 none
 false
 DEBUG;TRACE
-D:\siit\HCI\Proj2\TransportGogi\Railway\Railway\App.xaml
-5-1481918468
+D:\siit\HCI\Projekat2\TransportGogi\Railway\Railway\App.xaml
+18105568665
 
-19-647518499
-161389552146
-AddTrainRoute.xaml;BuyTicket.xaml;MainWindow.xaml;SearchRoute.xaml;TicketHistory.xaml;
+33-773698843
+167260984
+AddTimetable.xaml;AddTrain.xaml;AddTrainRoute.xaml;AdminPage.xaml;BuyTicket.xaml;Login.xaml;MainWindow.xaml;ManagerPage.xaml;OneTimetable.xaml;OneTrain.xaml;OneTrainRoute.xaml;ReadTimetable.xaml;ReadTrain.xaml;ReadTrainRoute.xaml;SearchRoute.xaml;SeatButton.xaml;TicketHistory.xaml;TrainSeats.xaml;
 
 False
 
