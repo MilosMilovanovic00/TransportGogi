@@ -76,7 +76,8 @@ namespace Railway
 
             Image trainImg = new Image();
             var path = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
-            string uriPath = path + "\\images\\train.png";
+            string p = path.Substring(0, path.Length - 10);
+            string uriPath = p + "\\images\\train.png";
             trainImg.Source = new BitmapImage(new Uri(uriPath));
             trainImg.HorizontalAlignment = HorizontalAlignment.Center;
             Grid.SetColumn(trainImg, 0);
@@ -113,7 +114,7 @@ namespace Railway
             grid.Children.Add(duration);
 
             Image arrowImg = new Image();
-            string uriPathArrow = path + "\\images\\arrow.png";
+            string uriPathArrow = p + "\\images\\arrow.png";
             arrowImg.Source = new BitmapImage(new Uri(uriPathArrow));
             arrowImg.HorizontalAlignment = HorizontalAlignment.Center;
             arrowImg.VerticalAlignment = VerticalAlignment.Top;
