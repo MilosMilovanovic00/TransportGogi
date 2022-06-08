@@ -29,6 +29,8 @@ namespace Railway
         public AdminPage AdminPage {get; set;}
         public ReadTrainRoute ReadTrainRoute { get; set; }
         public ReadTrain ReadTrain { get; set; }
+        public ReadTimetable ReadTimetable { get; set; }
+        public Reports Reports { get; set; }
         public Frame Frame { get; set; }    
         public User LogedUser { get; set; }
         
@@ -55,6 +57,8 @@ namespace Railway
             AdminPage = new AdminPage();
             ReadTrainRoute = new ReadTrainRoute(this);
             ReadTrain = new ReadTrain(this);
+            ReadTimetable = new ReadTimetable(this);
+            Reports = new Reports(this);
         }
        
         public void ShowAdminHomePage()
@@ -175,19 +179,26 @@ namespace Railway
             MainFrame.Content = SearchRoute;
             CurrentPage = "SearchRoute";
             Data.ResetCurrentIndex();
-            // DeleteUndoRedoButtons();
         }
-       /* public void TryDisableUndoRedo()
+
+        public void ShowReports()
         {
-            if (!Data.NeedUndo())
-                Undo.IsEnabled = false;
-            else
-                Undo.IsEnabled = true;
-            if (!Data.NeedRedo())
-                Redo.IsEnabled = false;
-            else
-                Redo.IsEnabled = true;
-        }*/
+            MainFrame.Content = Reports;
+            CurrentPage = "Reports";
+            Data.ResetCurrentIndex();       
+        }
+
+        /* public void TryDisableUndoRedo()
+         {
+             if (!Data.NeedUndo())
+                 Undo.IsEnabled = false;
+             else
+                 Undo.IsEnabled = true;
+             if (!Data.NeedRedo())
+                 Redo.IsEnabled = false;
+             else
+                 Redo.IsEnabled = true;
+         }*/
         public void AddUndoRedoButtons(StackPanel panel)
         {
            
@@ -241,19 +252,21 @@ namespace Railway
             MainFrame.Content = ReadTrain;
         }
 
-        public void DeleteUndoRedoButtons()
+        public void ShowReadTimetable(bool needsReset)
         {
-           /* undoRedo.Children.RemoveRange(0, undoRedo.Children.Count);*/
+            if (needsReset)
+                Data.ResetCurrentIndex();
+            CurrentPage = "ReadTimetable";
+            ReadTimetable.RefreshPage();
+            MainFrame.Content = ReadTimetable;
         }
 
         private void Button_Click_ShowSearchRoute(object sender, RoutedEventArgs e)
-        {
-            //DeleteUndoRedoButtons();
+        {       
             MainFrame.Content = SearchRoute;
         }
         private void Button_Click_ShowTicketHistory(object sender, RoutedEventArgs e)
         {         
-            //DeleteUndoRedoButtons();
             TicketHistory.RefreshPage();
             MainFrame.Content = TicketHistory;
         }
@@ -264,9 +277,8 @@ namespace Railway
         }
 
         private void Reports_Click(object sender, RoutedEventArgs e)
-        {
-            //ShowReadTrainRoute();
-            //ShowReports();
+        {           
+            ShowReports();
         }
 
         private void Trains_Click(object sender, RoutedEventArgs e)
@@ -281,7 +293,7 @@ namespace Railway
 
         private void Schedules_Click(object sender, RoutedEventArgs e)
         {
-            MainFrame.Content = new ReadTimetable(MainFrame);
+            ShowReadTimetable(true);
         }
      
 

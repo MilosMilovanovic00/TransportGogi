@@ -25,7 +25,6 @@ namespace Railway
         public ReadTrainRoute(Railway.MainWindow mainWindow)
         {
             this.window = mainWindow;
-            this.window.CurrentPage = "ReadTrainRoute";
             InitializeComponent();
             TryDisableUndoRedo();
 

@@ -21,20 +21,25 @@ namespace Railway
     /// </summary>
     public partial class ReadTimetable : Page
     {
-        private Frame managerContentFrame;
-        public ReadTimetable(Frame managerContentFrame)
+        private Railway.MainWindow Window;
+        public ReadTimetable(Railway.MainWindow window)
         {
             InitializeComponent();
-            this.managerContentFrame = managerContentFrame;
+            Window = window;
+            TryDisableUndoRedo();
 
+            AddContent();
+        }
 
+        public void AddContent()
+        {
             int timetableIndex = 1;
 
             foreach (Trainline trainline in Data.GetTrainLines())
             {
                 foreach (Timetable timetable in trainline.Timetables)
                 {
-                    OneTimetable oneTimetable = new OneTimetable(managerContentFrame, timetable);
+                    OneTimetable oneTimetable = new OneTimetable(Window.MainFrame, timetable);
                     addRowPixels(ReadTimetableGrid, oneTimetable.getHeight());
                     Grid.SetRow(oneTimetable, timetableIndex);
 
@@ -57,6 +62,50 @@ namespace Railway
         private void AddNewTimetable_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+        public void RefreshPage()
+        {
+            TryDisableUndoRedo();
+            ReadTimetableGrid.Children.RemoveRange(0, ReadTimetableGrid.Children.Count);
+            AddContent();
+        }
+        private void TryDisableUndoRedo()
+        {
+            if (!Data.NeedUndo())
+                UndoDeleteTimetable.IsEnabled = false;
+            else
+                UndoDeleteTimetable.IsEnabled = true;
+            if (!Data.NeedRedo())
+                RedoDeleteTimetable.IsEnabled = false;
+            else
+                RedoDeleteTimetable.IsEnabled = true;
+        }
+
+        private void UndoDeleteTimetable_Click(object sender, RoutedEventArgs e)
+        {
+            int response = (int)MessageBox.Show("Are you sure you want to undo deleting train route?", "Question", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (response == 6)
+            {
+                Data.Undo();
+                RefreshPage();
+            }
+            else
+            {
+                MessageBox.Show("Undo deleting train route cancelled.", "Cancellation successful", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
+        private void RedoDeleteTimetable_Click(object sender, RoutedEventArgs e)
+        {
+            int response = (int)MessageBox.Show("Are you sure you want to redo deleting train route?", "Question", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (response == 6)
+            {
+                Data.Redo();
+                RefreshPage();
+            }
+            else
+            {
+                MessageBox.Show("Redo deleting train route cancelled.", "Cancellation successful", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
         }
     }
 }

@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 D:\siit\HCI\Projekat2\TransportGogi\Railway\Railway\App.xaml
-18-54693549
+21-105676388
 
-341388186118
+371207761795
 161814643708
-AddTimetable.xaml;AddTrain.xaml;AddTrainRoute.xaml;AdminPage.xaml;BuyTicket.xaml;Login.xaml;MainWindow.xaml;ManagerPage.xaml;OneTimetable.xaml;OneTrain.xaml;OneTrainRoute.xaml;ReadTimetable.xaml;ReadTrain.xaml;ReadTrainRoute.xaml;SearchRoute.xaml;SeatButton.xaml;TicketHistory.xaml;TrainSeats.xaml;
+AddTimetable.xaml;AddTrain.xaml;AddTrainRoute.xaml;AdminPage.xaml;BuyTicket.xaml;Login.xaml;MainWindow.xaml;ManagerPage.xaml;MonthlyReport.xaml;OneTimetable.xaml;OneTrain.xaml;OneTrainRoute.xaml;ReadTimetable.xaml;ReadTrain.xaml;ReadTrainRoute.xaml;Reports.xaml;RouteReport.xaml;SearchRoute.xaml;SeatButton.xaml;TicketHistory.xaml;TrainSeats.xaml;
 
 True
 

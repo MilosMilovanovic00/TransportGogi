@@ -89,6 +89,9 @@
     </Compile>
     <Compile Include="model\Seats.cs" />
     <Compile Include="model\User.cs" />
+    <Compile Include="MonthlyReport.xaml.cs">
+      <DependentUpon>MonthlyReport.xaml</DependentUpon>
+    </Compile>
     <Compile Include="OneTimetable.xaml.cs">
       <DependentUpon>OneTimetable.xaml</DependentUpon>
     </Compile>
@@ -106,6 +109,12 @@
     </Compile>
     <Compile Include="ReadTrainRoute.xaml.cs">
       <DependentUpon>ReadTrainRoute.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Reports.xaml.cs">
+      <DependentUpon>Reports.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="RouteReport.xaml.cs">
+      <DependentUpon>RouteReport.xaml</DependentUpon>
     </Compile>
     <Compile Include="SearchRoute.xaml.cs">
       <DependentUpon>SearchRoute.xaml</DependentUpon>
@@ -159,6 +168,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="MonthlyReport.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="OneTimetable.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -182,6 +195,14 @@
     <Page Include="ReadTrainRoute.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Reports.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="RouteReport.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SearchRoute.xaml">
       <SubType>Designer</SubType>

@@ -85,3 +85,9 @@ D:\siit\HCI\Projekat2\TransportGogi\Railway\Railway\obj\Debug\Railway.pdb
 D:\siit\HCI\Projekat2\TransportGogi\Railway\Railway\obj\Debug\AdminPage.g.cs
 D:\siit\HCI\Projekat2\TransportGogi\Railway\Railway\obj\Debug\AdminPage.baml
 D:\siit\HCI\Projekat2\TransportGogi\Railway\Railway\obj\Debug\Railway.csprojAssemblyReference.cache
+D:\siit\HCI\Projekat2\TransportGogi\Railway\Railway\obj\Debug\MonthlyReport.g.cs
+D:\siit\HCI\Projekat2\TransportGogi\Railway\Railway\obj\Debug\RouteReport.g.cs
+D:\siit\HCI\Projekat2\TransportGogi\Railway\Railway\obj\Debug\MonthlyReport.baml
+D:\siit\HCI\Projekat2\TransportGogi\Railway\Railway\obj\Debug\RouteReport.baml
+D:\siit\HCI\Projekat2\TransportGogi\Railway\Railway\obj\Debug\Reports.g.cs
+D:\siit\HCI\Projekat2\TransportGogi\Railway\Railway\obj\Debug\Reports.baml
