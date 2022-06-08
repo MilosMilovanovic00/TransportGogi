@@ -27,8 +27,7 @@ namespace Railway
             this.window = mainWindow;
             this.window.CurrentPage = "ReadTrainRoute";
             InitializeComponent();
-            window.AddUndoRedoButtons(readTrainRoutePanel);
-            InitializeComponent();
+            TryDisableUndoRedo();
 
             AddContent();
 
@@ -49,12 +48,7 @@ namespace Railway
                 trainlineIndex++;
             }
         }
-        public void RefreshPage()
-        {
-            window.TryDisableUndoRedo();
-            ReadTrainRouteGrid.Children.RemoveRange(0, ReadTrainRouteGrid.Children.Count);
-            AddContent();
-        }
+
         private void addRowPixels(Grid grid, double height)
         {
             var rd = new RowDefinition();
@@ -66,6 +60,50 @@ namespace Railway
         private void AddNewTrainRoute_Click(object sender, RoutedEventArgs e)
         {
             window.MainFrame.Content = new AddTrainRoute(window);
+        }
+        public void RefreshPage()
+        {
+            TryDisableUndoRedo();
+            ReadTrainRouteGrid.Children.RemoveRange(0, ReadTrainRouteGrid.Children.Count);
+            AddContent();
+        }
+        private void TryDisableUndoRedo()
+        {
+            if (!Data.NeedUndo())
+                UndoDeleteTrainRoute.IsEnabled = false;
+            else
+                UndoDeleteTrainRoute.IsEnabled = true;
+            if (!Data.NeedRedo())
+                RedoDeleteTrainRoute.IsEnabled = false;
+            else
+                RedoDeleteTrainRoute.IsEnabled = true;
+        }
+
+        private void UndoDeleteTrainRoute_Click(object sender, RoutedEventArgs e)
+        {
+            int response = (int)MessageBox.Show("Are you sure you want to undo deleting train route?", "Question", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (response == 6)
+            {
+                Data.Undo();
+                RefreshPage();
+            }
+            else
+            {
+                MessageBox.Show("Undo deleting train route cancelled.", "Cancellation successful", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
+        private void RedoDeleteTrainRoute_Click(object sender, RoutedEventArgs e)
+        {
+            int response = (int)MessageBox.Show("Are you sure you want to redo deleting train route?", "Question", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (response == 6)
+            {
+                Data.Redo();
+                RefreshPage();
+            }
+            else
+            {
+                MessageBox.Show("Redo deleting train route cancelled.", "Cancellation successful", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
         }
     }
 }

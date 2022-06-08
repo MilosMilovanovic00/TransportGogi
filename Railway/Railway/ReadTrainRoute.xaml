@@ -15,9 +15,19 @@
         </Grid.RowDefinitions>
 
 
-        <StackPanel x:Name="readTrainRoutePanel" Grid.Row="0" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button x:Name="AddNewTrainRoute" Content="Add New Route" Click="AddNewTrainRoute_Click"></Button>
-        </StackPanel>
+        <Grid x:Name="readTrainRoutePanel" Grid.Row="0" Grid.Column="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50*"/>
+                <ColumnDefinition Width="22*"/>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="10*"/>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="10*"/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="AddNewTrainRoute" Grid.Column="1" Content="Add New Route" FontSize="16"  Click="AddNewTrainRoute_Click"></Button>
+            <Button x:Name="UndoDeleteTrainRoute" Grid.Column="3" FontSize="16" Content="Undo" Click="UndoDeleteTrainRoute_Click"></Button>
+            <Button x:Name="RedoDeleteTrainRoute" Grid.Column="5" FontSize="16" Content="Redo" Click="RedoDeleteTrainRoute_Click"></Button>
+        </Grid>
         
         <ScrollViewer Grid.Row="1" x:Name="ReadTrainRouteScrollViewer">
             <StackPanel x:Name="ReadTrainRouteStackPanel">

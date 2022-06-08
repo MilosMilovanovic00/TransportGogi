@@ -21,13 +21,13 @@ namespace Railway
     /// </summary>
     public partial class OneTrain : Grid
     {
-        Frame managerContentFrame;
-        Train train;
-        public OneTrain(Train train, Frame managerContentFrame)
+        Railway.MainWindow Window { get; set; }
+        public Train Train { get; set; }
+        public OneTrain(Train train, Railway.MainWindow window)
         {
             InitializeComponent();
-            this.train = train;
-            this.managerContentFrame = managerContentFrame;
+            this.Train = train;
+            Window = window;
 
             NumberOfWagonsLabel.Content = train.seats.numberOfWagons.ToString();
             NumberOfColumnsLabel.Content = train.seats.numberOfColumns.ToString();
@@ -42,22 +42,22 @@ namespace Railway
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
-            int response = (int)MessageBox.Show($"Are you sure you want to delete train {train.Name}?\n", "Question", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            int response = (int)MessageBox.Show($"Are you sure you want to delete train {Train.Name}?\n", "Question", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (response == 6)
             {
-                Data.deleteTrain(train);
-                int ok = (int)MessageBox.Show($"Train {train.Name} successfully deleted!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                managerContentFrame.Content = new ReadTrain(managerContentFrame);
+                Data.deleteTrain(Train);
+                int ok = (int)MessageBox.Show($"Train {Train.Name} successfully deleted!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                Window.ShowReadTrain(false);
             }
             else
             {
-                MessageBox.Show($"Train route {train.Name} deletion cancelled successfully.", "Cancellation successful", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show($"Train route {Train.Name} deletion cancelled successfully.", "Cancellation successful", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
 
         private void EditButton_Click(object sender, RoutedEventArgs e)
         {
-            managerContentFrame.Content = new AddTrain(managerContentFrame, train);
+            Window.MainFrame.Content = new AddTrain(Window, Train);
         }
 
       

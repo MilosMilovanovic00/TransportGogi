@@ -29,20 +29,20 @@ namespace Railway
         int numberOfWagons { get; set; }
         String name { get; set; }
 
-        Frame managerContentFrame;
+        Railway.MainWindow Window { get; set; }
 
-        public AddTrain(Frame managerContentFrame)
+        public AddTrain(Railway.MainWindow window)
         {
             InitializeComponent();
-            this.managerContentFrame = managerContentFrame;
+            Window = window;
             addRowPixels(SeatsGrid, 360);
             addSeats();
         }
 
-        public AddTrain(Frame managerContentFrame, Train train)
+        public AddTrain(Railway.MainWindow window, Train train)
         {
             InitializeComponent();
-            this.managerContentFrame = managerContentFrame;
+            Window = window;
 
             this.train = train;
 
@@ -214,7 +214,7 @@ namespace Railway
 
                         Data.AddTrain(chosenSeats, name, numberOfWagons);
                         int ok = (int)MessageBox.Show("Train successfully added!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                        managerContentFrame.Content = new ReadTrain(managerContentFrame);
+                        Window.ShowReadTrain(true);
                     }
                     else
                     {
@@ -228,7 +228,7 @@ namespace Railway
                     {
                         Data.editTrain(chosenSeats, name, numberOfWagons, train);
                         int ok = (int)MessageBox.Show("Train successfully edited!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                        managerContentFrame.Content = new ReadTrain(managerContentFrame);
+                        Window.ShowReadTrain(true);
                     }
                     else
                     {
@@ -254,7 +254,7 @@ namespace Railway
                 {
 
                     MessageBox.Show("Train addition cancelled successfully.", "Cancellation successful", MessageBoxButton.OK, MessageBoxImage.Information);
-                    managerContentFrame.Content = new ReadTrain(managerContentFrame);
+                    Window.ShowReadTrain(true);
                 }
             }
             else
@@ -263,7 +263,7 @@ namespace Railway
                 if (response == 6)
                 {
                     MessageBox.Show("Train addition cancelled successfully.", "Cancellation successful", MessageBoxButton.OK, MessageBoxImage.Information);
-                    managerContentFrame.Content = new ReadTrain(managerContentFrame);
+                    Window.ShowReadTrain(true);
                 }
 
             }

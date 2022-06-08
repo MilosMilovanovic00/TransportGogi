@@ -37,8 +37,6 @@ D:\siit\HCI\Projekat2\TransportGogi\Railway\Railway\bin\Debug\MaterialDesignThem
 D:\siit\HCI\Projekat2\TransportGogi\Railway\Railway\bin\Debug\MaterialDesignColors.pdb
 D:\siit\HCI\Projekat2\TransportGogi\Railway\Railway\bin\Debug\MaterialDesignThemes.Wpf.pdb
 D:\siit\HCI\Projekat2\TransportGogi\Railway\Railway\bin\Debug\MaterialDesignThemes.Wpf.xml
-D:\siit\HCI\Projekat2\TransportGogi\Railway\Railway\obj\Debug\Railway.csproj.AssemblyReference.cache
-D:\siit\HCI\Projekat2\TransportGogi\Railway\Railway\obj\Debug\Railway.csproj.SuggestedBindingRedirects.cache
 D:\siit\HCI\Projekat2\TransportGogi\Railway\Railway\obj\Debug\AddTimetable.g.cs
 D:\siit\HCI\Projekat2\TransportGogi\Railway\Railway\obj\Debug\AddTrain.g.cs
 D:\siit\HCI\Projekat2\TransportGogi\Railway\Railway\obj\Debug\AddTrainRoute.g.cs
@@ -86,3 +84,4 @@ D:\siit\HCI\Projekat2\TransportGogi\Railway\Railway\obj\Debug\Railway.exe
 D:\siit\HCI\Projekat2\TransportGogi\Railway\Railway\obj\Debug\Railway.pdb
 D:\siit\HCI\Projekat2\TransportGogi\Railway\Railway\obj\Debug\AdminPage.g.cs
 D:\siit\HCI\Projekat2\TransportGogi\Railway\Railway\obj\Debug\AdminPage.baml
+D:\siit\HCI\Projekat2\TransportGogi\Railway\Railway\obj\Debug\Railway.csprojAssemblyReference.cache

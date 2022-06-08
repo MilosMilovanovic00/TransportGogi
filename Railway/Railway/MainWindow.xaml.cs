@@ -1,4 +1,5 @@
 ﻿using Railway.model;
+using Railway.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,9 +28,8 @@ namespace Railway
         public Login Login { get; set; }
         public AdminPage AdminPage {get; set;}
         public ReadTrainRoute ReadTrainRoute { get; set; }
-        public Frame Frame { get; set; }
-        public Button Undo { get; set; }
-        public Button Redo { get; set; }
+        public ReadTrain ReadTrain { get; set; }
+        public Frame Frame { get; set; }    
         public User LogedUser { get; set; }
         
         public MainWindow()
@@ -54,10 +54,13 @@ namespace Railway
             CreateAdminNavbar();
             AdminPage = new AdminPage();
             ReadTrainRoute = new ReadTrainRoute(this);
+            ReadTrain = new ReadTrain(this);
         }
+       
         public void ShowAdminHomePage()
         {         
             MainFrame.Content = AdminPage;
+            Data.ResetCurrentIndex();
             CurrentPage = "adminHomePage";
         }
         public void CreateAdminNavbar()
@@ -104,10 +107,21 @@ namespace Railway
             schedules.Foreground = Brushes.FloralWhite;
             schedules.Click += Schedules_Click;
 
+            Button reports = new Button();
+            reports.BorderThickness = new Thickness(0);
+            reports.Height = 35;
+            reports.HorizontalAlignment = HorizontalAlignment.Stretch;
+            reports.FontSize = 15;
+            reports.Content = "Reports";
+            reports.Background = new SolidColorBrush(Color.FromRgb(0, 176, 255));
+            reports.Foreground = Brushes.FloralWhite;
+            reports.Click += Reports_Click;
+
             navButtons.Children.Add(routes);
             navButtons.Children.Add(trains);
             navButtons.Children.Add(stations);
             navButtons.Children.Add(schedules);
+            navButtons.Children.Add(reports);
 
         }
         public void CreateUserNavbar()
@@ -139,6 +153,7 @@ namespace Railway
         }
         public void ShowLogin()
         {
+            Data.ResetCurrentIndex();
             Login.emailTextBox.Text = "";
             MainFrame.Content = Login;
             CurrentPage = "Login";
@@ -159,9 +174,10 @@ namespace Railway
         {        
             MainFrame.Content = SearchRoute;
             CurrentPage = "SearchRoute";
-           // DeleteUndoRedoButtons();
+            Data.ResetCurrentIndex();
+            // DeleteUndoRedoButtons();
         }
-        public void TryDisableUndoRedo()
+       /* public void TryDisableUndoRedo()
         {
             if (!Data.NeedUndo())
                 Undo.IsEnabled = false;
@@ -171,11 +187,11 @@ namespace Railway
                 Redo.IsEnabled = false;
             else
                 Redo.IsEnabled = true;
-        }
+        }*/
         public void AddUndoRedoButtons(StackPanel panel)
         {
            
-            Undo = new Button();
+          /*  Undo = new Button();
             Undo.BorderThickness = new Thickness(0);
             Undo.Width = 100;
             Undo.FontSize = 18;
@@ -197,21 +213,34 @@ namespace Railway
             panel.Children.Add(Undo);
             panel.Children.Add(Redo);
 
-            TryDisableUndoRedo();
+            TryDisableUndoRedo();*/
         }
 
         public void ShowBuyTicket(BuyTicket buyTicket)
         {
+            Data.ResetCurrentIndex();
             CurrentPage = "BuyTickets";
             MainFrame.Content = buyTicket;
         }
 
-        public void ShowReadTrainRoute()
+        public void ShowReadTrainRoute(bool needsReset)
         {
+            if (needsReset)
+                Data.ResetCurrentIndex();
             CurrentPage = "ReadTrainRoute";
             ReadTrainRoute.RefreshPage();
             MainFrame.Content = ReadTrainRoute;
         }
+
+        public void ShowReadTrain(bool needsReset)
+        {
+            if (needsReset)
+                Data.ResetCurrentIndex();
+            CurrentPage = "ReadTrain";
+            ReadTrain.RefreshPage();
+            MainFrame.Content = ReadTrain;
+        }
+
         public void DeleteUndoRedoButtons()
         {
            /* undoRedo.Children.RemoveRange(0, undoRedo.Children.Count);*/
@@ -231,12 +260,18 @@ namespace Railway
 
         private void Routes_Click(object sender, RoutedEventArgs e)
         {
-            ShowReadTrainRoute();
+            ShowReadTrainRoute(true);
+        }
+
+        private void Reports_Click(object sender, RoutedEventArgs e)
+        {
+            //ShowReadTrainRoute();
+            //ShowReports();
         }
 
         private void Trains_Click(object sender, RoutedEventArgs e)
         {
-            MainFrame.Content = new ReadTrain(MainFrame);
+            ShowReadTrain(true);
         }
 
         private void Stations_Click(object sender, RoutedEventArgs e)
@@ -248,33 +283,7 @@ namespace Railway
         {
             MainFrame.Content = new ReadTimetable(MainFrame);
         }
-
-        private void Button_Click_Undo(object sender, RoutedEventArgs e)
-        {
-            Data.Undo();
-            if (CurrentPage == "BuyTickets")
-            {
-                SearchRoute.BuyTicket.QuickReservations = SearchRoute.GetQuickReservations();
-                SearchRoute.BuyTicket.RefreshPage();          
-            }
-            if (CurrentPage == "ReadTrainRoute")
-            {
-                ReadTrainRoute.RefreshPage();
-            }
-        }
-        private void Button_Click_Redo(object sender, RoutedEventArgs e)
-        {
-            Data.Redo();
-            if (CurrentPage == "BuyTickets")
-            {
-                SearchRoute.BuyTicket.QuickReservations = SearchRoute.GetQuickReservations();
-                SearchRoute.BuyTicket.RefreshPage();
-            }
-            if (CurrentPage == "ReadTrainRoute")
-            {
-                ReadTrainRoute.RefreshPage();
-            }
-        }
+     
 
         private void Button_Click_Logout(object sender, RoutedEventArgs e)
         {

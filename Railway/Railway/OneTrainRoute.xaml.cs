@@ -149,7 +149,7 @@ namespace Railway
             {
                 Data.deleteTrainRoute(trainline.Name);
                 int ok = (int)MessageBox.Show($"Train route {trainline.Name} successfully deleted!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                Window.ShowReadTrainRoute();
+                Window.ShowReadTrainRoute(false);
                 //Window.MainFrame.Content = new ReadTrainRoute(Window);
             }
             else

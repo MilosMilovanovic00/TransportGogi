@@ -7,30 +7,37 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="ReadTrain">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="90*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50*"/>
+                <ColumnDefinition Width="21*"/>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="10*"/>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="10*"/>
+            </Grid.ColumnDefinitions>
 
-    <ScrollViewer Grid.Row="1" x:Name="ReadTrainScrollViewer">
-        <StackPanel x:Name="ReadTrainStackPanel">
-            <Grid x:Name="ReadTrainGrid">
+            <Button x:Name="AddNewTrain" Grid.Column="1" Grid.Row="0" FontSize="16" Click="AddNewTrain_Click" Content="Add New Train" ></Button>
+            <Button x:Name="UndoDeleteTrain" Grid.Column="3" FontSize="16" Content="Undo" Click="UndoDeleteTrain_Click"></Button>
+            <Button x:Name="RedoDeleteTrain" Grid.Column="5" FontSize="16" Content="Redo" Click="RedoDeleteTrain_Click"></Button>
+        </Grid>
+        
+        <ScrollViewer Grid.Row="1" x:Name="ReadTrainScrollViewer">
+            <StackPanel x:Name="ReadTrainStackPanel">
+                <Grid x:Name="ReadTrainGrid">
 
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="35"></RowDefinition>
-                </Grid.RowDefinitions>
-                <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="5"></RowDefinition>
-                        <RowDefinition Height="25"></RowDefinition>
-                        <RowDefinition Height="5"></RowDefinition>
+                        <RowDefinition Height="35"></RowDefinition>
                     </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"></ColumnDefinition>
-                        <ColumnDefinition Width="150"></ColumnDefinition>
-                        <ColumnDefinition Width="5"></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-
-                    <Button x:Name="AddNewTrain" Grid.Column="1" Grid.Row="1" Click="AddNewTrain_Click" Content="Add New Train" ></Button>
+                
                 </Grid>
-            </Grid>
 
-        </StackPanel>
-    </ScrollViewer>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
 </Page>

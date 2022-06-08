@@ -25,13 +25,13 @@ namespace Railway
         int lastStationLabelRow;
         List<Dictionary<String, object>> infoBetweenStations;
         List<String> addedStations;
-
         Railway.MainWindow Window;
-        ReadTrainRoute readTrainRoute;
+    
         public AddTrainRoute(Railway.MainWindow window)
         {
             this.Window = window;
             InitializeComponent();
+            TryDisableUndoRedo();
             
 
             infoBetweenStations = new List<Dictionary<string, object>>();
@@ -113,9 +113,6 @@ namespace Railway
             addStationLabel(station.Name);
 
             lastStationLabelRow += 2;
-
-
-
         }
 
         private void Add_Button_Click(object sender, RoutedEventArgs e)
@@ -124,18 +121,27 @@ namespace Railway
 
             if (StationComboBox.SelectedItem != null)
             {
-                addedStations.Add(StationComboBox.SelectedItem.ToString());
-                addRowPixels(AddedStationsInfoGrid, 90);
+                string parameter = StationComboBox.SelectedItem.ToString();
+                int response = (int)MessageBox.Show("Are you sure you want to add station " + parameter + "?", "Question", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (response == 6)
+                {             
+                    addedStations.Add(StationComboBox.SelectedItem.ToString());
+                    addRowPixels(AddedStationsInfoGrid, 90);
 
-                if (lastStationLabelRow > -1)
-                {
-                    addBetweenStationInfoGrid();
-                }
-                addStationLabel();
-                addRowPixels(AddedStationsInfoGrid, 30);
+                    if (lastStationLabelRow > -1)
+                    {
+                        addBetweenStationInfoGrid();
+                    }
+                    addStationLabel();
+                    addRowPixels(AddedStationsInfoGrid, 30);
                 
 
-                lastStationLabelRow += 2;
+                    lastStationLabelRow += 2;
+                }
+                else
+                {
+                    MessageBox.Show("Adding station to the train route cancelled successfully.", "Cancellation successful", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
                 
             }
             else
@@ -377,7 +383,7 @@ namespace Railway
 
                         Data.AddTrainLine(infoBetweenStations);
                         int ok = (int)MessageBox.Show("Train route successfully added!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                        Window.MainFrame.Content = new ReadTrainRoute(Window);
+                        Window.ShowReadTrainRoute(true);
                     }
                     else
                     {
@@ -393,7 +399,7 @@ namespace Railway
 
                         Data.editTrainLine(infoBetweenStations, trainline.Name);
                         int ok = (int)MessageBox.Show("Train route successfully edited!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                        Window.MainFrame.Content = new ReadTrainRoute(Window);
+                        Window.ShowReadTrainRoute(true);
                     }
                     else
                     {
@@ -419,21 +425,65 @@ namespace Railway
                 {
 
                     MessageBox.Show("Train route addition cancelled successfully.", "Cancellation successful", MessageBoxButton.OK, MessageBoxImage.Information);
-                    Window.MainFrame.Content = new ReadTrainRoute(Window);
+                    Window.ShowReadTrainRoute(true);
                 }
                
             }
 
             else
             {
-                int response = (int)MessageBox.Show("Are you sure you want to cacel train route editing?" , "Question", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                int response = (int)MessageBox.Show("Are you sure you want to cancel train route editing?" , "Question", MessageBoxButton.YesNo, MessageBoxImage.Question);
                 if (response == 6)
                 {
 
                     MessageBox.Show("Train route editing cancelled successfully.", "Cancellation successful", MessageBoxButton.OK, MessageBoxImage.Information);
-                    Window.MainFrame.Content = new ReadTrainRoute(Window);
+                    Window.ShowReadTrainRoute(true);
                 }
                
+            }
+        }
+        public void RefreshPage()
+        {
+            TryDisableUndoRedo();
+            /*ReadTrainRouteGrid.Children.RemoveRange(0, ReadTrainRouteGrid.Children.Count);
+            AddContent();*/
+        }
+        private void TryDisableUndoRedo()
+        {
+            if (!Data.NeedUndo())
+                UndoAddTrainRoute.IsEnabled = false;
+            else
+                UndoAddTrainRoute.IsEnabled = true;
+            if (!Data.NeedRedo())
+                RedoAddTrainRoute.IsEnabled = false;
+            else
+                RedoAddTrainRoute.IsEnabled = true;
+        }
+
+        private void UndoAddTrainRoute_Click(object sender, RoutedEventArgs e)
+        {
+            int response = (int)MessageBox.Show("Are you sure you want to undo deleting train route?", "Question", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (response == 6)
+            {
+                Data.Undo();
+                RefreshPage();
+            }
+            else
+            {
+                MessageBox.Show("Undo deleting station cancelled.", "Cancellation successful", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
+        private void RedoAddTrainRoute_Click(object sender, RoutedEventArgs e)
+        {
+            int response = (int)MessageBox.Show("Are you sure you want to redo deleting train route?", "Question", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (response == 6)
+            {
+                Data.Redo();
+                RefreshPage();
+            }
+            else
+            {
+                MessageBox.Show("Redo deleting station cancelled.", "Cancellation successful", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
     }

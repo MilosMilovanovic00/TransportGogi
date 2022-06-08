@@ -12,7 +12,8 @@ namespace Railway
     {
         private static List<Railroad> RailwayStates { get; set; }
         private static int RailwayIndex { get; set; }
-
+        private static int CurrentRailwayIndex { get; set; }
+        private static int UpperRailwayIndexBound { get; set; }
         public static List<Seats> seats { get; set; }
 
         public static List<Train> trains { get; set; }
@@ -374,13 +375,15 @@ namespace Railway
 
             Data.AddRailway(railway);
             Data.SetRailwayIndex(0);
+            Data.CurrentRailwayIndex = 0;
+            Data.UpperRailwayIndexBound = 0;
             return railway;
 
         }
 
         internal static void AddTrain(Seats chosenSeats, string name, int numberOfWagons)
         {
-            Railroad oldRailway = Data.RailwayStates[Data.RailwayIndex];
+            Railroad oldRailway = Data.RailwayStates[Data.CurrentRailwayIndex];
             Railroad newRailway = oldRailway.DeepCopy();
 
             Seats seats = new Seats(numberOfWagons, chosenSeats.numberOfColumns, chosenSeats.numberOfSeatsPerColumn);
@@ -394,7 +397,7 @@ namespace Railway
 
         internal static void editTrain(Seats chosenSeats, string name, int numberOfWagons, Train oldTrain)
         {
-            Railroad oldRailway = Data.RailwayStates[Data.RailwayIndex];
+            Railroad oldRailway = Data.RailwayStates[Data.CurrentRailwayIndex];
             Railroad newRailway = oldRailway.DeepCopy();
 
             Seats seats = new Seats(numberOfWagons, chosenSeats.numberOfColumns, chosenSeats.numberOfSeatsPerColumn);
@@ -435,7 +438,7 @@ namespace Railway
 
         internal static void deleteTrain(Train oldTrain)
         {
-            Railroad oldRailway = Data.RailwayStates[Data.RailwayIndex];
+            Railroad oldRailway = Data.RailwayStates[Data.CurrentRailwayIndex];
             Railroad newRailway = oldRailway.DeepCopy();
 
             List<Trainline> trainlines = newRailway.TrainLines;
@@ -472,9 +475,24 @@ namespace Railway
             Data.SetRailwayIndex(Data.RailwayIndex + 1);
         }
 
+        public static List<Train> GetTrains()
+        {
+            List<Train> trains = new List<Train>();
+            Railroad railway = Data.RailwayStates[Data.CurrentRailwayIndex];
+            foreach (Trainline trainline in railway.TrainLines)
+            {
+                foreach (Timetable timetable in trainline.Timetables)
+                {
+                    if (!trains.Contains(timetable.Train))
+                        trains.Add(timetable.Train);
+                }
+            }
+            return trains;
+        }
+
         internal static void deleteTrainRoute(string name)
         {
-            Railroad oldRailway = Data.RailwayStates[Data.RailwayIndex];
+            Railroad oldRailway = Data.RailwayStates[Data.CurrentRailwayIndex];
             Railroad newRailway = oldRailway.DeepCopy();
 
             int index = -1;
@@ -501,7 +519,7 @@ namespace Railway
 
         internal static void editTrainLine(List<Dictionary<string, object>> infoBetweenStations, string name)
         {
-            Railroad oldRailway = Data.RailwayStates[Data.RailwayIndex];
+            Railroad oldRailway = Data.RailwayStates[Data.CurrentRailwayIndex];
             Railroad newRailway = oldRailway.DeepCopy();
 
             List<Station> stations = createStationsFromInfoBetweenStations(infoBetweenStations);
@@ -530,7 +548,7 @@ namespace Railway
 
         public static User GetLogedUser(string username, string password)
         {
-            Railroad railway = Data.RailwayStates[Data.RailwayIndex];
+            Railroad railway = Data.RailwayStates[Data.CurrentRailwayIndex];
             foreach (User user in railway.Users)
             {
                 if (user.Username.Equals(username) && user.Password.Equals(password))
@@ -546,21 +564,38 @@ namespace Railway
 
         private static void SetRailwayIndex(int index)
         {
-            Data.RailwayIndex = index;
+            //Data.RailwayIndex = index;
+            Data.CurrentRailwayIndex++;
+            UpperRailwayIndexBound = Data.RailwayStates.Count - 1;
+        }
+        public static void Undo()
+        {
+            CurrentRailwayIndex--;
+        }
+
+        public static void Redo()
+        {
+            CurrentRailwayIndex++;
         }
 
         public static bool NeedUndo()
         {
-            return RailwayIndex > 0;
+            return CurrentRailwayIndex > RailwayIndex;
         }
         public static bool NeedRedo()
         {
-           return RailwayIndex < Data.RailwayStates.Count - 1;
+            return CurrentRailwayIndex < Data.UpperRailwayIndexBound;
+        }
+
+        public static void ResetCurrentIndex()
+        {
+            RailwayIndex = CurrentRailwayIndex;
+            UpperRailwayIndexBound = CurrentRailwayIndex;
         }
         public static List<string> GetStationNames()
         {
             List<string> stationNames = new List<string>();
-            Railroad railway = Data.RailwayStates[Data.RailwayIndex];
+            Railroad railway = Data.RailwayStates[Data.CurrentRailwayIndex];
             foreach (Trainline trainline in railway.TrainLines)
             {
                 foreach (string stationName in trainline.GetStationNames())
@@ -576,7 +611,7 @@ namespace Railway
 
         public static void AddTrainLine(List<Dictionary<string, object>> infoBetweenStations)
         {
-            Railroad oldRailway = Data.RailwayStates[Data.RailwayIndex];
+            Railroad oldRailway = Data.RailwayStates[Data.CurrentRailwayIndex];
             Railroad newRailway = oldRailway.DeepCopy();
             List<Station> stations = createStationsFromInfoBetweenStations(infoBetweenStations);
 
@@ -627,7 +662,7 @@ namespace Railway
 
         public static List<QuickReservation> BuyTicket(QuickReservation reservation, Ticket ticket, string startStation, string endStation, DateTime travelDate, int numOfTickets)
         {
-            Railroad oldRailway = Data.RailwayStates[Data.RailwayIndex];
+            Railroad oldRailway = Data.RailwayStates[Data.CurrentRailwayIndex];
             Railroad newRailway = oldRailway.DeepCopy();
             newRailway.AddBoughtTicket(reservation.Trainline, reservation.Timetable, ticket);
             Data.AddRailway(newRailway);
@@ -638,7 +673,7 @@ namespace Railway
         public static List<Ticket> GetBoughtTickets(User user)
         {
             List<Ticket> tickets = new List<Ticket>();
-            Railroad railway = Data.RailwayStates[Data.RailwayIndex];
+            Railroad railway = Data.RailwayStates[Data.CurrentRailwayIndex];
             foreach (Trainline trainline in railway.TrainLines)
             {
                 foreach (Timetable timetable in trainline.Timetables)
@@ -654,25 +689,16 @@ namespace Railway
             }
             return tickets;
         }
-        public static void Undo()
-        {
-            RailwayIndex--;
-        }
-
-        public static void Redo()
-        {
-            RailwayIndex++;
-        }
 
         public static List<Trainline> GetTrainLines()
         {
-            Railroad railway = Data.RailwayStates[Data.RailwayIndex];
+            Railroad railway = Data.RailwayStates[Data.CurrentRailwayIndex];
             return railway.TrainLines;
         }
         public static List<QuickReservation> GetQuickReservations(string startStation, string endStation, DateTime travelDate, int numOfTickets)
         {
             List<QuickReservation> quickReservations = null;
-            Railroad railway = Data.RailwayStates[Data.RailwayIndex];
+            Railroad railway = Data.RailwayStates[Data.CurrentRailwayIndex];
             foreach (Trainline trainline in railway.TrainLines)
             {
                 if (trainline.ContainsStations(startStation, endStation))

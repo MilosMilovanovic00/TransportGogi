@@ -38,8 +38,15 @@
             <Label Grid.Column="0" Grid.Row="0" Foreground="White">Choose station:</Label>
             <ComboBox x:Name="StationComboBox" Grid.Column="1" Grid.Row="0"></ComboBox>
             <Button x:Name="AddStationButton" Grid.Column="2" Grid.Row="0" Click="Add_Button_Click">Add</Button>
-            <StackPanel x:Name="AddTrainRoutePanel" Grid.Row="0" Grid.Column="3" Orientation="Horizontal" HorizontalAlignment="Right">
-            </StackPanel>
+            <Grid x:Name="AddTrainRoutePanel" Grid.Row="0" Grid.Column="3" HorizontalAlignment="Stretch">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="49*"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="49*"/>
+                </Grid.ColumnDefinitions>
+                <Button x:Name="UndoAddTrainRoute" HorizontalAlignment="Right" Grid.Column="0" Width="60" FontSize="16" Content="Undo" Click="UndoAddTrainRoute_Click"></Button>
+                <Button x:Name="RedoAddTrainRoute" HorizontalAlignment="Left" Grid.Column="2" Width="60" FontSize="16" Content="Redo" Click="RedoAddTrainRoute_Click"></Button>
+            </Grid>
 
         </Grid>
 

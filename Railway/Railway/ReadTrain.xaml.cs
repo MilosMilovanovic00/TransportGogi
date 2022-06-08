@@ -21,29 +21,31 @@ namespace Railway
     /// </summary>
     public partial class ReadTrain : Page
     {
-        private Frame managerContentFrame;
-        public ReadTrain(Frame managerContentFrame)
+        private Railway.MainWindow Window;
+        public ReadTrain(Railway.MainWindow window)
         {
             InitializeComponent();
-            this.managerContentFrame = managerContentFrame;
+            Window = window;
+            TryDisableUndoRedo();
 
+            AddContent();         
+        }
 
-
+        private void AddContent()
+        {
             int trainIndex = 1;
 
-            foreach (Train train in Data.trains)
+            foreach (Train train in Data.GetTrains())
             {
-                OneTrain oneTrain = new OneTrain(train, managerContentFrame);
+                OneTrain oneTrain = new OneTrain(train, Window);
 
                 addRowPixels(ReadTrainGrid, oneTrain.getHeight());
-                
+
                 Grid.SetRow(oneTrain, trainIndex);
 
                 ReadTrainGrid.Children.Add(oneTrain);
                 trainIndex++;
             }
-
-            
         }
 
         private void addRowPixels(Grid grid, double height)
@@ -55,7 +57,51 @@ namespace Railway
 
         private void AddNewTrain_Click(object sender, RoutedEventArgs e)
         {
-            managerContentFrame.Content = new AddTrain(managerContentFrame);
+            Window.MainFrame.Content = new AddTrain(Window);
+        }
+        public void RefreshPage()
+        {
+            TryDisableUndoRedo();
+            ReadTrainGrid.Children.RemoveRange(0, ReadTrainGrid.Children.Count);
+            AddContent();
+        }
+        private void TryDisableUndoRedo()
+        {
+            if (!Data.NeedUndo())
+                UndoDeleteTrain.IsEnabled = false;
+            else
+                UndoDeleteTrain.IsEnabled = true;
+            if (!Data.NeedRedo())
+                RedoDeleteTrain.IsEnabled = false;
+            else
+                RedoDeleteTrain.IsEnabled = true;
+        }
+
+        private void UndoDeleteTrain_Click(object sender, RoutedEventArgs e)
+        {
+            int response = (int)MessageBox.Show("Are you sure you want to undo deleting train?", "Question", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (response == 6)
+            {
+                Data.Undo();
+                RefreshPage();
+            }
+            else
+            {
+                MessageBox.Show("Undo deleting train cancelled.", "Cancellation successful", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
+        private void RedoDeleteTrain_Click(object sender, RoutedEventArgs e)
+        {
+            int response = (int)MessageBox.Show("Are you sure you want to redo deleting train?", "Question", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (response == 6)
+            {
+                Data.Redo();
+                RefreshPage();
+            }
+            else
+            {
+                MessageBox.Show("Redo deleting train cancelled.", "Cancellation successful", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
         }
     }
 }
