@@ -48,3 +48,4 @@ D:\TrecaGodina\Interakcija covek racunar\PROJEKAT\TransportGogi\Railway\Railway\
 D:\TrecaGodina\Interakcija covek racunar\PROJEKAT\TransportGogi\Railway\Railway\obj\Debug\AddingStation.baml
 D:\TrecaGodina\Interakcija covek racunar\PROJEKAT\TransportGogi\Railway\Railway\obj\Debug\RailwayNetworkOverview.g.cs
 D:\TrecaGodina\Interakcija covek racunar\PROJEKAT\TransportGogi\Railway\Railway\obj\Debug\RailwayNetworkOverview.baml
+D:\TrecaGodina\Interakcija covek racunar\PROJEKAT\TransportGogi\Railway\Railway\obj\Debug\Railway.csproj.CopyComplete
